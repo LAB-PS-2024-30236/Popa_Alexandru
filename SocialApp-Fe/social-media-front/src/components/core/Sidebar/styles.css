@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tab-highlight-color: rgba(255, 255, 255, 0) !important;
+    -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
+    outline: none !important;
+}
+
+@font-face {
+    font-family: logoFont;
+    src: url('../../../assets/fonts/ChickenPie.ttf');
+}
+
+.sidebar {
+    background-color: white;
+    width: 20vw;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #7b7b7b;
+}
+
+.sidebar-logo {
+    padding-left: 15px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: logoFont;
+    color: black;
+}
+
+.sidebar-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-option {
+    color: #2a2a2a;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:10px;
+}
+
+.sidebar-option-text {
+    font-weight: normal;
+    color: black;
+    font-size: 20px;
+}
+
+.sidebar-text-active {
+    font-weight: bold;
+    color: black;
+    font-size: 20px;
+}
+
+.sidebar-icon {
+    width: 35px;
+    height: 35px;
+}
+
+.sidebar-option:hover {
+    background-color: #e8e8e8;
+}
+
+.sidebar-active {
+    background-color: #a9a9a9;
+}
+
+@media (max-width: 970px) {
+    .sidebar {
+        width: 30vw;
+    }
+}

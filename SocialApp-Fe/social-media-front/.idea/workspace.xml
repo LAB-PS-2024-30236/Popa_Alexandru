@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f7df78a-310e-46ae-9163-7b081fa4e5bf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/core/Credits/Credits.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/core/Credits/Credits.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/feed/FeedSidebar/FeedSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/feed/FeedSidebar/FeedSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/messaging/ChatOverview/ChatOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/messaging/ChatOverview/ChatOverview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/auth-login-widget/AuthLoginWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/auth-login-widget/AuthLoginWidget.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2d5uhCjQcO0ETkWmV0tNzuyuYMf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/an3_facultate/sem1/IS/laboratoare/SocialApp-Fe/social-media-front&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\an3_facultate\\sem1\\IS\\laboratoare\\SocialApp-Fe\\social-media-front\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f7df78a-310e-46ae-9163-7b081fa4e5bf" name="Changes" comment="" />
+      <created>1709310378170</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709310378170</updated>
+      <workItem from="1709310379204" duration="7543000" />
+      <workItem from="1709366962316" duration="965000" />
+      <workItem from="1709902076765" duration="789000" />
+      <workItem from="1709909778532" duration="1366000" />
+      <workItem from="1709978713743" duration="1278000" />
+      <workItem from="1710452024834" duration="1000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

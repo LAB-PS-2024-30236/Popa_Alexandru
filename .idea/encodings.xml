@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/SocialApp/CommentsReactions/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/CommentsReactions/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Connections/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Connections/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Content/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Content/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Messaging/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Messaging/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Notifications/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Notifications/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Search/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/Search/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/User/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SocialApp/User/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,6 @@
+{
+  "timestamp": "2024-01-14T16:36:28.658+0000",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/getPersonConversations/value"
+}

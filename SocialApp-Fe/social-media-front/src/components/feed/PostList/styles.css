@@ -1,0 +1,12 @@
+.post-list-container {
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+@media (max-width: 970px) {
+    .post-list-container {
+        width: 60vw;
+    }
+}

@@ -1,0 +1,543 @@
+Index: SocialApp/Content/src/main/java/com/app/project/model/Post.java
+===================================================================
+diff --git a/SocialApp/Content/src/main/java/com/app/project/model/Post.java b/SocialApp/Content/src/main/java/com/app/project/model/Post.java
+deleted file mode 100644
+--- a/SocialApp/Content/src/main/java/com/app/project/model/Post.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ /dev/null	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
+@@ -1,36 +0,0 @@
+-package com.app.project.model;
+-
+-
+-import jakarta.persistence.*;
+-import lombok.AllArgsConstructor;
+-import lombok.Getter;
+-import lombok.NoArgsConstructor;
+-import lombok.Setter;
+-
+-import java.time.LocalDateTime;
+-
+-@Getter
+-@Setter
+-@NoArgsConstructor
+-@AllArgsConstructor
+-@Entity
+-@Table(name = "post")
+-public class Post {
+-
+-    @Id
+-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+-    private Long postId;
+-
+-    @Column(nullable = false, length = 5000)
+-    private String content;
+-
+-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+-//    @JoinColumn(name = "user_id", referencedColumnName = "userId")
+-//    private User user;
+-
+-    @Column(nullable = false)
+-    private LocalDateTime createdAt;
+-
+-    // Constructors, Getters, and Setters...
+-}
+-
+Index: SocialApp/Content/src/main/java/com/app/project/repository/PostRepository.java
+===================================================================
+diff --git a/SocialApp/Content/src/main/java/com/app/project/repository/PostRepository.java b/SocialApp/Content/src/main/java/com/app/project/repository/PostRepository.java
+deleted file mode 100644
+--- a/SocialApp/Content/src/main/java/com/app/project/repository/PostRepository.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ /dev/null	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
+@@ -1,15 +0,0 @@
+-package com.app.project.repository;
+-
+-import com.app.project.model.Post;
+-import org.springframework.data.jpa.repository.JpaRepository;
+-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+-import org.springframework.stereotype.Repository;
+-import reactor.core.publisher.Flux;
+-
+-import java.util.Optional;
+-
+-@Repository
+-public interface PostRepository extends JpaRepository<Post, Long> {
+-//
+-//    Optional<Post> findByUserId(Long userId);
+-}
+Index: SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.repository;\r\n\r\nimport com.app.project.model.Content;\r\nimport org.springframework.data.jpa.repository.JpaRepository;\r\nimport org.springframework.data.repository.reactive.ReactiveCrudRepository;\r\nimport org.springframework.stereotype.Repository;\r\nimport reactor.core.publisher.Flux;\r\n\r\nimport java.util.Optional;\r\n\r\n@Repository\r\n\r\npublic interface ContentRepository extends JpaRepository<Content, Long> {\r\n    Optional<Content> findAllByUserId(Long userId);\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java b/SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java
+--- a/SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java	(date 1699559430175)
+@@ -2,15 +2,12 @@
+ 
+ import com.app.project.model.Content;
+ import org.springframework.data.jpa.repository.JpaRepository;
+-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
++import org.springframework.data.jpa.repository.Query;
+ import org.springframework.stereotype.Repository;
+-import reactor.core.publisher.Flux;
+-
+-import java.util.Optional;
+ 
+ @Repository
+-
+ public interface ContentRepository extends JpaRepository<Content, Long> {
+-    Optional<Content> findAllByUserId(Long userId);
+-}
+ 
++    @Query("SELECT p from Content p where p.userId= :userId")
++    Content findByUserId(Long userId);
++}
+\ No newline at end of file
+Index: SocialApp/User/src/main/java/com/app/project/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.service;\r\n\r\nimport com.app.project.model.User;\r\nimport com.app.project.repository.UserRepository;\r\nimport com.mailgun.api.v3.MailgunMessagesApi;\r\nimport com.mailgun.client.MailgunClient;\r\nimport com.mailgun.model.message.Message;\r\nimport com.mailgun.model.message.MessageResponse;\r\nimport lombok.NonNull;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;\r\nimport org.springframework.stereotype.Service;\r\nimport reactor.core.publisher.Flux;\r\nimport reactor.core.publisher.Mono;\r\nimport reactor.core.scheduler.Schedulers;\r\n\r\nimport java.time.Duration;\r\nimport java.util.Optional;\r\nimport java.util.function.Predicate;\r\n\r\n@Service\r\npublic class UserService {\r\n    @Autowired\r\n    private UserRepository userRepository;\r\n\r\n\r\n    public User saveUser(@NonNull User user) {\r\n        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();\r\n\r\n        checkIfValueInUse(user.getUsername(), \"Username already in use\", this::isUsernameInUse);\r\n        checkIfValueInUse(user.getPhoneNumber(), \"Phone number is already in use\", this::isPhoneNumberInUse);\r\n        checkIfValueInUse(user.getEmail(), \"Email already in use\", this::isEmailInUse);\r\n        user.setPassword(passwordEncoder.encode(user.getPassword()));\r\n        return userRepository.save(user);\r\n    }\r\n    public void changePasswordChange(Long userId, String oldPassword, String newPassword) {\r\n        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();\r\n        User user = userRepository.findById(userId)\r\n                .orElseThrow(() -> new RuntimeException(\"User not found\"));\r\n\r\n        if (passwordEncoder.matches(user.getPassword(), oldPassword)) {\r\n            user.setPassword(passwordEncoder.encode(newPassword));\r\n            userRepository.save(user);\r\n        }\r\n    }\r\n\r\n    public void changePassword(Long userId) {\r\n        Optional<User> user=userRepository.findById(userId);\r\n        sendEmailForForgottenPassword(user.get(),false);\r\n    }\r\n    private void checkIfValueInUse(String value, String errorMessage, Predicate<String> checkFunction) {\r\n        if (value != null && checkFunction.test(value)) {\r\n            throw new IllegalStateException(errorMessage);\r\n        }\r\n    }\r\n\r\n    public Mono<User> getUser(Long id) {\r\n        return Mono.just(userRepository.findById(id).orElseThrow(() -> new RuntimeException(\"User not found\")));\r\n    }\r\n\r\n    public Flux<User> getAllUsers() {\r\n        return Flux.defer(() -> Flux.fromIterable(userRepository.findAll()))\r\n                .subscribeOn(Schedulers.boundedElastic())\r\n                .delayElements(Duration.ofSeconds(1));\r\n    }\r\n\r\n\r\n    private boolean isEmailInUse(String email) {\r\n        return findByEmail(email) != null;\r\n    }\r\n\r\n    private boolean isUsernameInUse(String username) {\r\n        return findByUsername(username) != null;\r\n    }\r\n\r\n    private boolean isPhoneNumberInUse(String phoneNumber) {\r\n        return findByPhoneNumber(phoneNumber) != null;\r\n    }\r\n\r\n    public User findByEmail(String email) {\r\n        Optional<User> user = userRepository.findByUsername(email);\r\n        return user.orElse(null);\r\n    }\r\n\r\n    public User findByUsername(String username) {\r\n        Optional<User> user = userRepository.findByUsername(username);\r\n        return user.orElse(null);\r\n    }\r\n\r\n    public User findByPhoneNumber(String phoneNumber) {\r\n        Optional<User> user = userRepository.findByUsername(phoneNumber);\r\n        return user.orElse(null);\r\n    }\r\n    public void forgotPassword(Long userId, String email) {\r\n        Optional<User> user=userRepository.findById(userId);\r\n        sendEmailForForgottenPassword(user.get(), true);\r\n    }\r\n    public void forgotPasswordChange(Long userId, String newPassword) {\r\n        BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();\r\n        var user = userRepository.findById(userId);\r\n\r\n        user.get().setPassword(passwordEncoder.encode(newPassword));\r\n        userRepository.save(user.get());\r\n    }\r\n    private void sendEmailForForgottenPassword(User user, boolean forgotOrChange) {\r\n        if (forgotOrChange==true){\r\n            String forgettenPasswordLink = \"http://localhost:8080/api/user/forgot-password/\" + user.getUserId();\r\n\r\n\r\n            String subject =\" Forgot password yolo\";\r\n            String body = \"<p>Hi \" + user.getFirstName()+\" \"+user.getLastName()+ \",</p>\" +\"</br>\"+\r\n                    \"<p>We got a request to reset your yolo password\" + \".</p>\" +\r\n                    \"<p><a href=\\\"\" + forgettenPasswordLink + \"\\\" style=\\\"padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none;\\\">Change Password</a></p>\"+\r\n                    \"<h6 \\\"style=\\\"color: #808080;\\\">If you ignore this message nothing will happen. If you didn't request this password restart please contact us at alex24popa@gmail.com\";\r\n\r\n            Message message = Message.builder()\r\n                    .from(\"hrubanandrada@gmail.com\")\r\n                    .to(user.getEmail())\r\n                    .subject(subject)\r\n                    .html(body)\r\n                    .build();\r\n\r\n            MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(\"513eec4c933709bb149ce43a6e2e9d6c-8c9e82ec-7fd20ff7\")\r\n                    .createApi(MailgunMessagesApi.class);\r\n\r\n            MessageResponse response = mailgunMessagesApi.sendMessage(\"sandboxc88fb7eb763145139b7e312a51af007a.mailgun.org\", message);\r\n        } else{\r\n            String forgettenPasswordLink = \"http://localhost:8080/api/user/change-password/\" + user.getUserId();\r\n\r\n\r\n            String subject =\" Forgot password yolo\";\r\n            String body = \"<p>Hi \" + user.getFirstName()+\" \"+user.getLastName()+ \",</p>\" +\"</br>\"+\r\n                    \"<p>We got a request to reset your yolo password\" + \".</p>\" +\r\n                    \"<p><a href=\\\"\" + forgettenPasswordLink + \" \\\"style=\\\"padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border: none; border-radius: 5px; font-size: 16px; text-align: center; display: inline-block; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);\\\">Change Password</a></p>\"+\r\n                    \"<h6 \\\"style=\\\"color: #808080;\\\">If you ignore this message nothing will happen. If you didn't request this password restart please contact us at alex24popa@gmail.com\";\r\n\r\n            Message message = Message.builder()\r\n                    .from(\"hrubanandrada@gmail.com\")\r\n                    .to(user.getEmail())\r\n                    .subject(subject)\r\n                    .html(body)\r\n                    .build();\r\n\r\n            MailgunMessagesApi mailgunMessagesApi = MailgunClient.config(\"513eec4c933709bb149ce43a6e2e9d6c-8c9e82ec-7fd20ff7\")\r\n                    .createApi(MailgunMessagesApi.class);\r\n\r\n            MessageResponse response = mailgunMessagesApi.sendMessage(\"sandboxc88fb7eb763145139b7e312a51af007a.mailgun.org\", message);\r\n        }\r\n\r\n\r\n\r\n    }\r\n\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/User/src/main/java/com/app/project/service/UserService.java b/SocialApp/User/src/main/java/com/app/project/service/UserService.java
+--- a/SocialApp/User/src/main/java/com/app/project/service/UserService.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/User/src/main/java/com/app/project/service/UserService.java	(date 1699714531211)
+@@ -6,6 +6,10 @@
+ import com.mailgun.client.MailgunClient;
+ import com.mailgun.model.message.Message;
+ import com.mailgun.model.message.MessageResponse;
++import io.jsonwebtoken.Claims;
++import io.jsonwebtoken.Jws;
++import io.jsonwebtoken.Jwts;
++import io.jsonwebtoken.SignatureAlgorithm;
+ import lombok.NonNull;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+@@ -14,7 +18,10 @@
+ import reactor.core.publisher.Mono;
+ import reactor.core.scheduler.Schedulers;
+ 
++import javax.crypto.spec.SecretKeySpec;
++import java.security.Key;
+ import java.time.Duration;
++import java.util.Base64;
+ import java.util.Optional;
+ import java.util.function.Predicate;
+ 
+@@ -23,7 +30,7 @@
+     @Autowired
+     private UserRepository userRepository;
+ 
+-
++    private static final String SECRET_KEY = "ssdjfjfjfjrfffffssdjfjfjfjrfffffssdjfjfjff3422";
+     public User saveUser(@NonNull User user) {
+         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+ 
+@@ -151,6 +158,21 @@
+ 
+     }
+ 
++    public static Claims decodeJWT(String jwt) {
++        byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET_KEY);
++        Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
++
++        Jws<io.jsonwebtoken.Claims> jws = Jwts.parserBuilder()
++                .setSigningKey(signingKey)
++                .build()
++                .parseClaimsJws(jwt);
+ 
++        // Return the body containing the claims
++        return (Claims) jws.getBody();
++    }
++
++    public Mono<User> findById(Long id){
++        return Mono.just(userRepository.findById(id).get());
++    }
+ 
+ }
+\ No newline at end of file
+Index: SocialApp/User/src/main/java/com/app/project/authentication/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.authentication;\r\n\r\nimport com.app.project.model.User;\r\nimport com.app.project.service.UserService;\r\nimport io.jsonwebtoken.*;\r\nimport lombok.NonNull;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;\r\nimport org.springframework.web.bind.annotation.CrossOrigin;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RestController;\r\nimport reactor.core.publisher.Mono;\r\n\r\nimport javax.crypto.spec.SecretKeySpec;\r\nimport java.security.Key;\r\nimport java.util.Base64;\r\nimport java.util.Date;\r\n\r\n\r\n\r\n@RestController\r\n@CrossOrigin\r\npublic class LoginController {\r\n\r\n    private final UserService userService;\r\n    private static final String SECRET_KEY = \"ssdjfjfjfjrfffffssdjfjfjfjrfffffssdjfjfjff3422\";\r\n\r\n    public LoginController(@NonNull final UserService userService) {\r\n        this.userService = userService;\r\n    }\r\n\r\n    @PostMapping(\"/api/login\")\r\n    public Mono<ResponseEntity<JsonLoginResponse>> login(@RequestBody @NonNull final JsonLoginRequest request) {\r\n        User user = new User();\r\n        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();\r\n        if (request.getEmail() != null) {\r\n            user = userService.findByEmail(request.getEmail());\r\n        } else if (request.getUsername() != null) {\r\n            user = userService.findByUsername(request.getUsername());\r\n        } else if (request.getPhoneNumber() != null) {\r\n            user = userService.findByPhoneNumber(request.getPhoneNumber());\r\n        }\r\n\r\n        if (user != null && passwordEncoder.matches(request.getPassword(), user.getPassword())) {\r\n            String token = String.valueOf(createJWT(user.getUserId().toString(), user.getEmail(), 999999999));\r\n            return Mono.just(ResponseEntity.ok(new JsonLoginResponse(token, user)));\r\n        } else {\r\n            return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null));\r\n        }\r\n    }\r\n\r\n    public static String createJWT(String id, String subject, long ttlMillis) {\r\n        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;\r\n\r\n        long nowMillis = System.currentTimeMillis();\r\n        Date now = new Date(nowMillis);\r\n\r\n        byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET_KEY);\r\n        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());\r\n\r\n        JwtBuilder builder = Jwts.builder()\r\n                .setId(id)\r\n                .setIssuedAt(now)\r\n                .setSubject(subject)\r\n                .setIssuer(\"popa&robert\")\r\n                .signWith(signingKey, signatureAlgorithm);\r\n\r\n        if (ttlMillis >= 0) {\r\n            long expMillis = nowMillis + ttlMillis;\r\n            Date exp = new Date(expMillis);\r\n            builder.setExpiration(exp);\r\n        }\r\n\r\n        return builder.compact();\r\n    }\r\n\r\n    public static void decodeJWT(String jwt) {\r\n        byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET_KEY);\r\n        Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());\r\n\r\n        Jws<Claims> jws = Jwts.parserBuilder()\r\n                .setSigningKey(signingKey)\r\n                .build()\r\n                .parseClaimsJws(jwt);\r\n\r\n        jws.getBody();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/User/src/main/java/com/app/project/authentication/LoginController.java b/SocialApp/User/src/main/java/com/app/project/authentication/LoginController.java
+--- a/SocialApp/User/src/main/java/com/app/project/authentication/LoginController.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/User/src/main/java/com/app/project/authentication/LoginController.java	(date 1699566330751)
+@@ -76,7 +76,7 @@
+         return builder.compact();
+     }
+ 
+-    public static void decodeJWT(String jwt) {
++    public static Claims decodeJWT(String jwt) {
+         byte[] apiKeySecretBytes = Base64.getDecoder().decode(SECRET_KEY);
+         Key signingKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
+ 
+@@ -85,6 +85,6 @@
+                 .build()
+                 .parseClaimsJws(jwt);
+ 
+-        jws.getBody();
++       return jws.getBody();
+     }
+ }
+Index: SocialApp/Content/src/main/java/com/app/project/model/Content.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.model;\r\n\r\nimport jakarta.persistence.*;\r\nimport lombok.*;\r\n\r\nimport java.time.LocalDate;\r\n\r\n@Getter\r\n@Setter\r\n@AllArgsConstructor\r\n@NoArgsConstructor\r\n@Table\r\n@Entity\r\npublic class Content {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long userId;\r\n    @NonNull\r\n    private String username;\r\n    @NonNull\r\n    private String password;\r\n    @NonNull\r\n    private String email;\r\n    @NonNull\r\n    private Boolean status;\r\n    private String firstName;\r\n    private String lastName;\r\n    private String bio;\r\n    @NonNull\r\n    private LocalDate birthdate;\r\n    private String phoneNumber;\r\n    @NonNull\r\n    private String language;\r\n    @NonNull\r\n    private Boolean isPrivate;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/Content/src/main/java/com/app/project/model/Content.java b/SocialApp/Content/src/main/java/com/app/project/model/Content.java
+--- a/SocialApp/Content/src/main/java/com/app/project/model/Content.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/Content/src/main/java/com/app/project/model/Content.java	(date 1699557422920)
+@@ -14,23 +14,12 @@
+ public class Content {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+-    private Long userId;
+-    @NonNull
+-    private String username;
+-    @NonNull
+-    private String password;
+-    @NonNull
+-    private String email;
++    private Long contentId;
+     @NonNull
+-    private Boolean status;
+-    private String firstName;
+-    private String lastName;
+-    private String bio;
++    private Long userId;
+     @NonNull
+-    private LocalDate birthdate;
+-    private String phoneNumber;
++    private String photo;
+     @NonNull
+-    private String language;
+-    @NonNull
+-    private Boolean isPrivate;
++    private LocalDate datePosted;
++    private String description;
+ }
+\ No newline at end of file
+Index: SocialApp/Content/src/main/java/com/app/project/service/ContentService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.service;\r\n\r\nimport com.app.project.model.Content;\r\nimport com.app.project.model.Post;\r\nimport com.app.project.repository.ContentRepository;\r\nimport com.app.project.repository.PostRepository;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.time.LocalDate;\r\nimport java.time.Period;\r\nimport java.util.Optional;\r\n\r\nimport static com.app.project.util.Validators.passwordNumberValidator;\r\nimport static com.app.project.util.Validators.passwordSpecialCharacterValidator;\r\n\r\n@Service\r\npublic class ContentService {\r\n//    @Autowired\r\n//    private ContentRepository userDAO;\r\n//    private final PostRepository postRepository;\r\n//    @Autowired\r\n//    public ContentService(PostRepository postRepository) {\r\n//        this.postRepository = postRepository;\r\n//\r\n//    }\r\n//\r\n//\r\n//    public void register(Content user) {\r\n//        if(!user.getEmail().contains(\"@\")) {\r\n//            throw new RuntimeException(\"Invalid email\");\r\n//        }\r\n//        if(user.getPassword().length() < 8) {\r\n//            throw new RuntimeException(\"Password too short\");\r\n//        }\r\n//        if(!passwordSpecialCharacterValidator(user.getPassword())){\r\n//            throw new RuntimeException(\"Password should contain special characters\");\r\n//        }\r\n//        if(!passwordNumberValidator(user.getPassword())){\r\n//            throw new RuntimeException(\"Password should contain numbers\");\r\n//        }\r\n//        if(Period.between(user.getBirthdate(), LocalDate.now()).getYears() < 18) {\r\n//            throw new RuntimeException(\"You should be at least 18 years old\");\r\n//        }\r\n//        userDAO.save(user);\r\n//    }\r\n//\r\n//    public void login(Content user) {\r\n//        Optional<Content> optionalUser = userDAO.findById(user.getUserId());\r\n//        if(optionalUser.isEmpty()) {\r\n//            throw new RuntimeException(\"User not found\");\r\n//        }\r\n//    }\r\n//\r\n//    public Content getUser(Long id) {\r\n//        Optional<Content> optionalUser = userDAO.findById(id);\r\n//        if(optionalUser.isEmpty()) {\r\n//            throw new RuntimeException(\"User not found\");\r\n//        }\r\n//\r\n//        return optionalUser.get();\r\n//    }\r\n//\r\n//    public void updateUser(Content user) {\r\n//        Optional<Content> optionalUser = userDAO.findById(user.getUserId());\r\n//        if (optionalUser.isEmpty()) {\r\n//            throw new RuntimeException(\"User not found\");\r\n//        }\r\n//    }\r\n//    @Autowired\r\n//    private UserService friendService;\r\n//\r\n//    // Method to get posts from friends\r\n//    public Flux<Post> getRecommendedPosts(Long userId) {\r\n//        return userService.getUser(userId)\r\n//                .flatMapMany(user ->\r\n//                        Flux.fromIterable(user.getFriends())\r\n//                                .flatMap(friend -> getPostsByUser(friend.getUserId()))\r\n//                );\r\n//    }\r\n//\r\n//\r\n//    public Flux<Post> getSuggestedPosts(Long userId) {\r\n//        User user = userService.getUser(userId).block();\r\n//        Set<User> friendsOfFriends = user.getFriends().stream()\r\n//                .flatMap(friend -> friend.getFriends().stream())\r\n//                .collect(Collectors.toSet());\r\n//        return Flux.fromIterable(friendsOfFriends)\r\n//                .flatMap(friendOfFriend -> getPostsByUser(friendOfFriend.getUserId()));\r\n//    }\r\n\r\n//    private Optional<Post> getPostsByUser(Long userId) {\r\n//\r\n//        return postRepository.findByUserId(userId);\r\n//    }\r\n\r\n\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/Content/src/main/java/com/app/project/service/ContentService.java b/SocialApp/Content/src/main/java/com/app/project/service/ContentService.java
+--- a/SocialApp/Content/src/main/java/com/app/project/service/ContentService.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/Content/src/main/java/com/app/project/service/ContentService.java	(date 1699560686725)
+@@ -1,102 +1,46 @@
+ package com.app.project.service;
+ 
+ import com.app.project.model.Content;
+-import com.app.project.model.Post;
+ import com.app.project.repository.ContentRepository;
+-import com.app.project.repository.PostRepository;
+-
++import lombok.NonNull;
+ import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.http.HttpStatus;
++import org.springframework.http.MediaType;
+ import org.springframework.stereotype.Service;
+-
+-import java.time.LocalDate;
+-import java.time.Period;
+-import java.util.Optional;
+-
+-import static com.app.project.util.Validators.passwordNumberValidator;
+-import static com.app.project.util.Validators.passwordSpecialCharacterValidator;
++import org.springframework.web.reactive.function.client.WebClient;
++import reactor.core.publisher.Flux;
+ 
+ @Service
+ public class ContentService {
+-//    @Autowired
+-//    private ContentRepository userDAO;
+-//    private final PostRepository postRepository;
+-//    @Autowired
+-//    public ContentService(PostRepository postRepository) {
+-//        this.postRepository = postRepository;
+-//
+-//    }
+-//
+-//
+-//    public void register(Content user) {
+-//        if(!user.getEmail().contains("@")) {
+-//            throw new RuntimeException("Invalid email");
+-//        }
+-//        if(user.getPassword().length() < 8) {
+-//            throw new RuntimeException("Password too short");
+-//        }
+-//        if(!passwordSpecialCharacterValidator(user.getPassword())){
+-//            throw new RuntimeException("Password should contain special characters");
+-//        }
+-//        if(!passwordNumberValidator(user.getPassword())){
+-//            throw new RuntimeException("Password should contain numbers");
+-//        }
+-//        if(Period.between(user.getBirthdate(), LocalDate.now()).getYears() < 18) {
+-//            throw new RuntimeException("You should be at least 18 years old");
+-//        }
+-//        userDAO.save(user);
+-//    }
+-//
+-//    public void login(Content user) {
+-//        Optional<Content> optionalUser = userDAO.findById(user.getUserId());
+-//        if(optionalUser.isEmpty()) {
+-//            throw new RuntimeException("User not found");
+-//        }
+-//    }
+-//
+-//    public Content getUser(Long id) {
+-//        Optional<Content> optionalUser = userDAO.findById(id);
+-//        if(optionalUser.isEmpty()) {
+-//            throw new RuntimeException("User not found");
+-//        }
+-//
+-//        return optionalUser.get();
+-//    }
+-//
+-//    public void updateUser(Content user) {
+-//        Optional<Content> optionalUser = userDAO.findById(user.getUserId());
+-//        if (optionalUser.isEmpty()) {
+-//            throw new RuntimeException("User not found");
+-//        }
+-//    }
+-//    @Autowired
+-//    private UserService friendService;
+-//
+-//    // Method to get posts from friends
+-//    public Flux<Post> getRecommendedPosts(Long userId) {
+-//        return userService.getUser(userId)
+-//                .flatMapMany(user ->
+-//                        Flux.fromIterable(user.getFriends())
+-//                                .flatMap(friend -> getPostsByUser(friend.getUserId()))
+-//                );
+-//    }
+-//
+-//
+-//    public Flux<Post> getSuggestedPosts(Long userId) {
+-//        User user = userService.getUser(userId).block();
+-//        Set<User> friendsOfFriends = user.getFriends().stream()
+-//                .flatMap(friend -> friend.getFriends().stream())
+-//                .collect(Collectors.toSet());
+-//        return Flux.fromIterable(friendsOfFriends)
+-//                .flatMap(friendOfFriend -> getPostsByUser(friendOfFriend.getUserId()));
+-//    }
++    @Autowired
++    private WebClient webClient;
+ 
+-//    private Optional<Post> getPostsByUser(Long userId) {
+-//
+-//        return postRepository.findByUserId(userId);
+-//    }
++    @Autowired
++    private ContentRepository contentRepository;
+ 
++    public Flux<Content> getSuggestedPosts(@NonNull Long userId) {
++        return Flux.merge(getUserFriends(userId).map(this::getPosts));
++    }
++    public Flux<Content> getPosts(@NonNull Long userId) {
++        return getUserFriends(userId)
++                .map(friendId -> contentRepository.findByUserId(friendId));
++    }
+ 
++    private Flux<Long> getUserFriends(@NonNull Long userId) {
++        var webRequest = webClient
++                .get()
++                .uri("localhost:8080/api/connections/getFriends/" + userId)
++                .accept(MediaType.APPLICATION_JSON);
+ 
++        return webRequest.exchangeToFlux(response -> {
++            if (response.statusCode() == HttpStatus.OK) {
++                return response.bodyToFlux(Long.class);
++            } else {
++                return response.bodyToFlux(String.class)
++                        .flatMap(body -> Flux.error(new RuntimeException("Request failed:" + body)));
++            }
++        });
++    }
+ }
+ 
+ 
+Index: SocialApp/Connections/src/main/java/com/app/project/model/Connection.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.model;\r\n\r\nimport jakarta.persistence.*;\r\nimport lombok.*;\r\n\r\nimport java.time.LocalDate;\r\n\r\n@Getter\r\n@Setter\r\n@AllArgsConstructor\r\n@NoArgsConstructor\r\n@Table\r\n@Entity\r\npublic class Connection {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Long userId;\r\n    @NonNull\r\n    private String username;\r\n    @NonNull\r\n    private String password;\r\n    @NonNull\r\n    private String email;\r\n    @NonNull\r\n    private Boolean status;\r\n    private String firstName;\r\n    private String lastName;\r\n    private String bio;\r\n    @NonNull\r\n    private LocalDate birthdate;\r\n    private String phoneNumber;\r\n    @NonNull\r\n    private String language;\r\n    @NonNull\r\n    private Boolean isPrivate;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/Connections/src/main/java/com/app/project/model/Connection.java b/SocialApp/Connections/src/main/java/com/app/project/model/Connection.java
+--- a/SocialApp/Connections/src/main/java/com/app/project/model/Connection.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/Connections/src/main/java/com/app/project/model/Connection.java	(date 1699783347417)
+@@ -14,23 +14,6 @@
+ public class Connection {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+-    private Long userId;
+-    @NonNull
+-    private String username;
+-    @NonNull
+-    private String password;
+-    @NonNull
+-    private String email;
+-    @NonNull
+-    private Boolean status;
+-    private String firstName;
+-    private String lastName;
+-    private String bio;
+-    @NonNull
+-    private LocalDate birthdate;
+-    private String phoneNumber;
+-    @NonNull
+-    private String language;
+-    @NonNull
+-    private Boolean isPrivate;
++    private Long connectionId;
++
+ }
+Index: SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.controller;\r\n\r\nimport com.app.project.model.Content;\r\nimport com.app.project.model.Post;\r\nimport com.app.project.service.ContentService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.*;\r\nimport reactor.core.publisher.Flux;\r\n\r\n@RestController\r\n@RequestMapping(\"api/user\")\r\npublic class ContentController {\r\n//    @Autowired\r\n//    private ContentService userService;\r\n//\r\n//\r\n//    @PostMapping(\"/register\")\r\n//    public void register(Content user) {\r\n//        userService.register(user);\r\n//    }\r\n//\r\n//    @PostMapping(\"/login\")\r\n//    public void login(Content user) {\r\n//        userService.login(user);\r\n//    }\r\n//\r\n//\r\n//    public void updateUser(Content user) {\r\n//\r\n//    }\r\n//\r\n//    public void deleteUser(Content user) {\r\n//\r\n//    }\r\n//    @GetMapping(\"/{userId}/recommended\")\r\n//    public Flux<Post> getRecommendedPosts(@PathVariable Long userId) {\r\n//        return contentService.getRecommendedPosts(userId);\r\n//    }\r\n//\r\n//    @GetMapping(\"/{userId}/suggested\")\r\n//    public Flux<Post> getSuggestedPosts(@PathVariable Long userId) {\r\n//        return contentService.getSuggestedPosts(userId);\r\n//    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java b/SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java
+--- a/SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java	(date 1699560686734)
+@@ -1,45 +1,27 @@
+ package com.app.project.controller;
+ 
+ import com.app.project.model.Content;
+-import com.app.project.model.Post;
+ import com.app.project.service.ContentService;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.web.bind.annotation.*;
+ import reactor.core.publisher.Flux;
+ 
+ @RestController
+-@RequestMapping("api/user")
++@RequestMapping("api/content")
+ public class ContentController {
+-//    @Autowired
+-//    private ContentService userService;
+-//
+-//
+-//    @PostMapping("/register")
+-//    public void register(Content user) {
+-//        userService.register(user);
+-//    }
+-//
+-//    @PostMapping("/login")
+-//    public void login(Content user) {
+-//        userService.login(user);
+-//    }
+-//
+-//
+-//    public void updateUser(Content user) {
+-//
+-//    }
+-//
+-//    public void deleteUser(Content user) {
+-//
+-//    }
+-//    @GetMapping("/{userId}/recommended")
+-//    public Flux<Post> getRecommendedPosts(@PathVariable Long userId) {
+-//        return contentService.getRecommendedPosts(userId);
+-//    }
+-//
+-//    @GetMapping("/{userId}/suggested")
+-//    public Flux<Post> getSuggestedPosts(@PathVariable Long userId) {
+-//        return contentService.getSuggestedPosts(userId);
+-//    }
++    @Autowired
++    private ContentService contentService;
++
++    @GetMapping("/getFeedPosts/{userId}")
++    public Flux<Content> getFeedPosts(@PathVariable Long userId) {
++        return contentService.getPosts(userId);
++    }
++
++    @GetMapping("/getSuggestedPosts/{userId}")
++    public Flux<Content> getSuggestedPosts(@PathVariable Long userId) {
++        return contentService.getSuggestedPosts(userId);
++    }
++
++
+ }
+ 
+Index: SocialApp/Content/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n\txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n\t<modelVersion>4.0.0</modelVersion>\r\n\t<parent>\r\n\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t<artifactId>spring-boot-starter-parent</artifactId>\r\n\t\t<version>3.1.5</version>\r\n\t\t<relativePath/> <!-- lookup parent from repository -->\r\n\t</parent>\r\n\t<groupId>com.app</groupId>\r\n\t<artifactId>project</artifactId>\r\n\t<version>0.0.1-SNAPSHOT</version>\r\n\t<name>project</name>\r\n\t<description>Demo project for Spring Boot</description>\r\n\t<properties>\r\n\t\t<java.version>21</java.version>\r\n\t</properties>\r\n\t<dependencies>\r\n\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter</artifactId>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework</groupId>\r\n\t\t\t<artifactId>spring-orm</artifactId>\r\n\t\t\t<version>6.0.6</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-mail</artifactId>\r\n\t\t\t<version>2.5.6</version>\r\n\t\t</dependency>\r\n\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.hibernate</groupId>\r\n\t\t\t<artifactId>hibernate-core</artifactId>\r\n\t\t\t<version>6.1.7.Final</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>com.mailgun</groupId>\r\n\t\t\t<artifactId>mailgun-java</artifactId>\r\n\t\t\t<version>1.0.7</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-data-jpa</artifactId>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.postgresql</groupId>\r\n\t\t\t<artifactId>postgresql</artifactId>\r\n\t\t\t<scope>runtime</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-web</artifactId>\r\n\t\t</dependency>\r\n\t\t<!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework</groupId>\r\n\t\t\t<artifactId>spring-webflux</artifactId>\r\n\t\t\t<version>6.0.13</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-hateoas</artifactId>\r\n\t\t</dependency>\r\n\t\t<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-devtools</artifactId>\r\n\t\t\t<version>3.1.5</version>\r\n\t\t</dependency>\r\n\r\n\t\t<!-- Spring Web for File Upload -->\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-web</artifactId>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.projectlombok</groupId>\r\n\t\t\t<artifactId>lombok</artifactId>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>io.jsonwebtoken</groupId>\r\n\t\t\t<artifactId>jjwt-api</artifactId>\r\n\t\t\t<version>0.11.5</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>io.jsonwebtoken</groupId>\r\n\t\t\t<artifactId>jjwt-impl</artifactId>\r\n\t\t\t<version>0.11.5</version>\r\n\t\t\t<scope>runtime</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>io.jsonwebtoken</groupId>\r\n\t\t\t<artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->\r\n\t\t\t<version>0.11.5</version>\r\n\t\t\t<scope>runtime</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.security</groupId>\r\n\t\t\t<artifactId>spring-security-crypto</artifactId>\r\n\t\t\t<version>6.0.2</version>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>junit</groupId>\r\n\t\t\t<artifactId>junit</artifactId>\r\n\t\t\t<version>4.13.2</version>\r\n\t\t\t<scope>test</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.mockito</groupId>\r\n\t\t\t<artifactId>mockito-core</artifactId>\r\n\t\t\t<version>5.2.0</version>\r\n\t\t\t<scope>test</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t<artifactId>spring-boot-starter-test</artifactId>\r\n\t\t\t<scope>test</scope>\r\n\t\t</dependency>\r\n\t\t<dependency>\r\n\t\t\t<groupId>org.springframework.security</groupId>\r\n\t\t\t<artifactId>spring-security-crypto</artifactId>\r\n\t\t</dependency>\r\n\r\n    </dependencies>\r\n\r\n\t<build>\r\n\t\t<plugins>\r\n\t\t\t<plugin>\r\n\t\t\t\t<groupId>org.springframework.boot</groupId>\r\n\t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\r\n\t\t\t</plugin>\r\n\t\t</plugins>\r\n\t</build>\r\n\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/Content/pom.xml b/SocialApp/Content/pom.xml
+--- a/SocialApp/Content/pom.xml	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/Content/pom.xml	(date 1699557841239)
+@@ -48,6 +48,10 @@
+ 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+ 		</dependency>
+ 		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-webflux</artifactId>
++		</dependency>
++		<dependency>
+ 			<groupId>org.postgresql</groupId>
+ 			<artifactId>postgresql</artifactId>
+ 			<scope>runtime</scope>
+@@ -62,6 +66,14 @@
+ 			<artifactId>spring-webflux</artifactId>
+ 			<version>6.0.13</version>
+ 		</dependency>
++		<!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-api -->
++		<dependency>
++			<groupId>jakarta.platform</groupId>
++			<artifactId>jakarta.jakartaee-api</artifactId>
++			<version>8.0.0</version>
++			<scope>provided</scope>
++		</dependency>
++
+ 		<dependency>
+ 			<groupId>org.springframework.boot</groupId>
+ 			<artifactId>spring-boot-starter-hateoas</artifactId>
+Index: SocialApp/User/src/main/java/com/app/project/controller/UserController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.app.project.controller;\r\n\r\n\r\nimport com.app.project.authentication.JsonLoginResponse;\r\nimport com.app.project.model.User;\r\nimport com.app.project.service.UserService;\r\nimport lombok.NonNull;\r\nimport org.springframework.http.MediaType;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.*;\r\nimport reactor.core.publisher.Flux;\r\nimport reactor.core.publisher.Mono;\r\n\r\nimport static com.app.project.authentication.LoginController.createJWT;\r\n\r\n@RestController\r\n@RequestMapping(\"api/user\")\r\npublic class UserController {\r\n\r\n    private final UserService userService;\r\n\r\n    public UserController(@NonNull UserService userService) {\r\n        this.userService = userService;\r\n    }\r\n\r\n    @PostMapping(\"/register\")\r\n    public Mono<ResponseEntity<JsonLoginResponse>> saveUser(@RequestBody @NonNull final User request) {\r\n        var user= userService.saveUser(request);\r\n        String token = String.valueOf(createJWT(user.getUserId().toString(), user.getEmail(), 999999999));\r\n        return Mono.just(ResponseEntity.ok(new JsonLoginResponse(token,user)));\r\n    }\r\n\r\n\r\n    @GetMapping(value = \"/getUserWithId:{id}\")\r\n    public Mono<User> getUser(@PathVariable Long id) throws Exception {\r\n        return userService.getUser(id);\r\n    }\r\n\r\n    @GetMapping(value = \"/allUsers\", produces = MediaType.TEXT_EVENT_STREAM_VALUE)\r\n    public Flux<User> getAllUsers() {\r\n        return userService.getAllUsers();\r\n    }\r\n\r\n    @GetMapping(\"/{userId}/change-password\")\r\n    public void changePassword(\r\n            @PathVariable Long userId){\r\n\r\n        userService.changePassword(userId);\r\n    }\r\n    @PostMapping(\"/{userId}/change-password\")\r\n    public void changePassword(\r\n            @PathVariable Long userId, @RequestBody PasswordChangeRequest request){\r\n\r\n        userService.changePasswordChange(userId, request.getOldPassword(), request.getNewPassword());\r\n    }\r\n\r\n    @GetMapping(\"/forgot-password/{userId}\")\r\n    public void forgotPassword(\r\n            @PathVariable Long userId, @RequestBody PasswordForgottenRequest request){\r\n        userService.forgotPassword(userId, request.getEmail());\r\n    }\r\n    @PostMapping(\"/forgot-password/{userId}\")\r\n    public void forgotPasswordChange(\r\n            @PathVariable Long userId, @RequestBody PasswordChangeRequest request){\r\n        userService.forgotPasswordChange(userId, request.getNewPassword());\r\n    }\r\n\r\n\r\n\r\n\r\n    public void updateUser(User user) {\r\n\r\n    }\r\n\r\n    public void deleteUser(User user) {\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/SocialApp/User/src/main/java/com/app/project/controller/UserController.java b/SocialApp/User/src/main/java/com/app/project/controller/UserController.java
+--- a/SocialApp/User/src/main/java/com/app/project/controller/UserController.java	(revision 7e8cb17787e0308ca453b6c4bcf0113254ab880f)
++++ b/SocialApp/User/src/main/java/com/app/project/controller/UserController.java	(date 1699566330333)
+@@ -2,6 +2,7 @@
+ 
+ 
+ import com.app.project.authentication.JsonLoginResponse;
++import com.app.project.authentication.LoginController;
+ import com.app.project.model.User;
+ import com.app.project.service.UserService;
+ import lombok.NonNull;
+@@ -65,7 +66,10 @@
+         userService.forgotPasswordChange(userId, request.getNewPassword());
+     }
+ 
+-
++    @GetMapping("/getSession")
++    public Mono<User> getSession(@RequestBody  String token){
++        return userService.findById(Long.valueOf(LoginController.decodeJWT(token).getId()));
++    }
+ 
+ 
+     public void updateUser(User user) {

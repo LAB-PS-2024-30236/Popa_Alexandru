@@ -1,0 +1,105 @@
+.post-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.post-topbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px
+}
+
+.post-topbar-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.post-profile-photo {
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px
+}
+
+.post-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 7.5px;
+    height: auto;
+    aspect-ratio: 1;
+}
+.post-under-img-container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column
+}
+
+.post-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post-like-comm-share {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.post-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.post-icon-small {
+    width: 20px;
+    height: 20px;
+}
+
+.post-likes {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start
+}
+
+.post-liked-text {
+    display: flex;
+    gap: 3px;
+    flex-direction: row;
+    justify-content: flex-start
+}
+
+.post-like-image {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin-right: -8px;
+    border-color: white;
+    border-width: 2px
+}
+.post-description {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.post-bottom-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

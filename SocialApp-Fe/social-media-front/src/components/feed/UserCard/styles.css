@@ -1,0 +1,32 @@
+.user-card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-card-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 40px;
+}
+
+.user-card-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-card-text-img {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.user-card-switch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+

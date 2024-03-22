@@ -1,0 +1,95 @@
+@font-face {
+    font-family: logoFont;
+    src: url('../../assets/fonts/ChickenPie.ttf');
+}
+
+.auth-back {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #F56040, #F77737, #FCAF45, #FFDC80);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.auth-container {
+    width: 35%;
+    height: 100%;
+    background-color: white;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.auth-page-container {
+    width: 65%;
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.auth-forms {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-logo {
+    font-size: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: logoFont;
+    color: black;
+}
+
+.auth-title {
+    font-size: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.auth-form {
+    width: 100%;
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 16px;
+    border: 1px solid #a9a9a9;
+}
+
+.auth-form:focus {
+    border: 1px solid #616161;
+}
+
+.auth-under {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+@media (max-width: 850px) and (min-width: 600px) {
+    .auth-page-container {
+        width: 50%;
+    }
+    .auth-container {
+        width: 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .auth-page-container {
+        display: none;
+    }
+    .auth-container {
+        width: 100%;
+    }
+}

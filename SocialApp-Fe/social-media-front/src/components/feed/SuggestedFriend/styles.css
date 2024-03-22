@@ -1,0 +1,32 @@
+.suggested-friend-card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.suggested-friend-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 40px;
+}
+
+.suggested-friend-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.suggested-friend-text-img {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.suggested-friend-follow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+

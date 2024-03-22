@@ -1,0 +1,54 @@
+GET http://localhost:8083/getPersonConversations/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-01-14T183709.404.json
+
+###
+
+GET http://localhost:8083/getPersonConversations/usedId
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-01-14T183659.400.json
+
+###
+
+GET http://localhost:8083/getPersonConversations/usedId
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-01-14T183657.400.json
+
+###
+
+GET http://localhost:8083/getPersonConversations/value
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-01-14T183628.400.json
+
+###
+
+GET http://localhost:8085/api/connections/getSuggestedFriends/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-11-13T010414.404.json
+
+###
+
+GET http://localhost:8080/api/user/getUserWithId:/1
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8.1)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-10-29T194407.500.json
+
+###
+

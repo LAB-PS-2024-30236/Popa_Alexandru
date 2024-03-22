@@ -1,0 +1,6 @@
+{
+  "timestamp": "2023-10-29T17:44:07.696+00:00",
+  "status": 500,
+  "error": "Internal Server Error",
+  "path": "/api/user/getUserWithId:/1"
+}

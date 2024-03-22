@@ -1,0 +1,23 @@
+.widget-main {
+  position: absolute;
+  right: 0;
+  width: 80vw;
+  height: 100%;
+  padding-top: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.link-btn {
+  text-decoration: none;
+}
+
+@media (max-width: 970px) {
+  .widget-main{
+    width: 70vw;
+  }
+}

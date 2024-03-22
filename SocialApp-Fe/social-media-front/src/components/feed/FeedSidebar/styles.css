@@ -1,0 +1,25 @@
+.feed-sidebar-card {
+    background-color: white;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.suggested-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.suggested-text {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+@media (max-width: 970px) {
+    .feed-sidebar-card{
+        display: none;
+    }
+}
