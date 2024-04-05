@@ -8,6 +8,7 @@ export type FeedState = {
     suggestedFriends: SuggestedFriend[];
     suggestedPosts: Post[];
     feedPosts: Post[];
+    feedRandomPosts: Post [];
 }
 
 export type EffectsPayload = {

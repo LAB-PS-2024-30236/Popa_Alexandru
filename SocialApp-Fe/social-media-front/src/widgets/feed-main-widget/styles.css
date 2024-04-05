@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.end-of-post{
+    padding: 1rem;
+    text-wrap: normal;
+}
 @media (max-width: 970px) {
     .feed-central {
         width: 70vw;

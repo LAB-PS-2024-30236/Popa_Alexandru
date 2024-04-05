@@ -4,5 +4,6 @@ export const feedSelect = ({
     suggestedPosts: (state: RootState) => state.feed.suggestedPosts,
     feedPosts: (state: RootState) => state.feed.feedPosts,
     feedStories: (state: RootState) => state.feed.feedStories,
-    suggestedFriends: (state: RootState) => state.feed.suggestedFriends
+    suggestedFriends: (state: RootState) => state.feed.suggestedFriends,
+    feedRandomPosts: (state: RootState) => state.feed.feedRandomPosts
 });

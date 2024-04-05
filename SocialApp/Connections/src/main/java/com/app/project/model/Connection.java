@@ -21,5 +21,7 @@ public class Connection {
     private List<Long> following;
     private List<Long> followers;
 
+    public <T> Connection(long l, List<T> ts, List<T> ts1) {
+    }
 }
 
