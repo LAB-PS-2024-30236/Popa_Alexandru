@@ -4,5 +4,6 @@ export const defaultFeed: FeedState = {
     feedStories: [],
     suggestedFriends: [],
     suggestedPosts: [],
-    feedPosts: []
+    feedPosts: [],
+    feedRandomPosts: []
 }

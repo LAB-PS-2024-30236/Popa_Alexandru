@@ -7,6 +7,11 @@ import com.app.project.model.User;
 import com.app.project.repository.ContentRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,7 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
@@ -46,10 +51,12 @@ public class ContentService {
             )
     );
 
+    @Cacheable(value = "suggestedPostsCache", key = "'suggestedPosts:' + #userId")
     public Flux<ContentResponse> getSuggestedPosts(@NonNull Long userId) {
         return Flux.merge(getUserFriends(userId).map(this::getPosts));
     }
 
+    @Cacheable(value = "postsCache", key = "'posts:' + #userId")
     public Flux<ContentResponse> getPosts(Long userId) {
         return getUserFriends(userId)
                 .flatMap(friendId ->
@@ -62,21 +69,29 @@ public class ContentService {
                                 }));
     }
 
+    @Cacheable(value = "userPostsCache", key = "#userId")
     public List<Content> getUserPosts(Long userId) {
         return contentRepository.findAllByUserId(userId);
     }
 
+    @Cacheable(value = "randomPostsCache", key = "'randomPosts'")
     public Flux<ContentResponse> getRandomPosts() {
         return generateRandomIds()
                 .flatMap(friendId ->
-                        getUser(friendId)
-                                .zipWith(Mono.just(contentRepository.findByUserId(friendId)))
+                        getUser((Long) friendId)
+                                .zipWith(Mono.just(contentRepository.findLatestByUserId((Long) friendId,  PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "datePosted"))).getContent().get(0)))
                                 .map(tuple -> {
                                     User user = tuple.getT1();
-                                    Content content = (Content) tuple.getT2();
+                                    Content content = tuple.getT2();
                                     return mapToContentResponse(content, user);
-                                }));
+                                }))
+                .timeout(Duration.ofSeconds(1))
+                .onErrorResume(e -> {
+                    System.out.println("Operation timed out: " + e.getMessage());
+                    return Flux.empty();
+                });
     }
+
 
     private ContentResponse mapToContentResponse(Content content, User userEntity) {
         return ContentResponse.builder()
@@ -122,15 +137,29 @@ public class ContentService {
         });
     }
 
-    private Flux<Long> generateRandomIds() {
+    private Flux<Object> generateRandomIds() {
         Random random = new Random();
-        List<Long> randomUserId = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        return Flux.generate(sink -> {
             Long randomNumber = (long) random.nextInt(1, 5);
-            randomUserId.add(randomNumber);
-        }
+            sink.next(randomNumber);
+            if (randomNumber == 5) {
+                sink.complete();
+            }
+        }).distinct().take(5);
+    }
 
-        return (Flux<Long>) randomUserId;
+    @CacheEvict(value = {"userPostsCache", "postsCache", "suggestedPostsCache"}, allEntries = true)
+    public Content addPost(Content post) {
+        return contentRepository.save(post);
+    }
+
+    @CacheEvict(value = {"userPostsCache", "postsCache", "suggestedPostsCache", "randomPostsCache"}, allEntries = true)
+    public void removePost(Long postId) {
+        if (contentRepository.existsById(postId)) {
+            contentRepository.deleteById(postId);
+        } else {
+            throw new RuntimeException("Post not found with id: " + postId);
+        }
     }
 }
 

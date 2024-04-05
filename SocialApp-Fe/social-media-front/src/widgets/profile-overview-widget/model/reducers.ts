@@ -24,6 +24,9 @@ const profileSlice = createSlice({
         addPosts: (state, action: PayloadAction<Post[]>) => {
             state.posts = action.payload;
         },
+        addRandomPosts: (state, action: PayloadAction<Post[]>) => {
+            state.posts = action.payload;
+        },
         addStreak: (state, action: PayloadAction<Streak>) =>{
             state.followers = action.payload.followers;
             state.following = action.payload.following;
@@ -34,5 +37,5 @@ const profileSlice = createSlice({
     }
 });
 
-export const { addPosts, addStreak, addConnection, refreshProfile, setCurrentProfile, closeProfile } = profileSlice.actions;
+export const { addPosts,addRandomPosts, addStreak, addConnection, refreshProfile, setCurrentProfile, closeProfile } = profileSlice.actions;
 export default profileSlice.reducer;

@@ -1,6 +1,6 @@
 import {request} from "../../../components/core/Request/request";
 import {CONNECTIONS_BASE_URL, CONTENT_BASE_URL, USER_BASE_URL} from "../../../utils/constants";
-import {addConnection, addPosts, addStreak, refreshProfile} from "./reducers";
+import {addConnection, addPosts, addRandomPosts, addStreak, refreshProfile} from "./reducers";
 import {ProfileEffectsPayload} from "./types";
 
 export const dataRequested = async({userId, myUserId, jwtToken, dispatch}: ProfileEffectsPayload) => {
@@ -29,6 +29,18 @@ export const dataRequested = async({userId, myUserId, jwtToken, dispatch}: Profi
         }
     }).then((response) => {
         dispatch(addPosts(response.data));
+    }).catch((error) => {
+        console.error(error);
+    })
+
+    await request({
+        url: CONTENT_BASE_URL + '/getRandomPosts',
+        method: 'GET',
+        headers: {
+            'Authorization' : "Bearer " + jwtToken
+        }
+    }).then((response) => {
+        dispatch(addRandomPosts(response.data));
     }).catch((error) => {
         console.error(error);
     })

@@ -16,8 +16,6 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Service
@@ -48,9 +46,9 @@ public class StoryService {
 
         return generateRandomIds()
                 .flatMap(friendId ->
-                        getUser(friendId)
+                        getUser((Long) friendId)
                                 .flatMapMany(user ->
-                                        Flux.fromIterable(storyRepository.findByUserId(friendId))
+                                        Flux.fromIterable(storyRepository.findByUserId((Long) friendId))
                                                 .filter(story -> story.getDatePosted().isAfter(ChronoLocalDate.from(timeLimit))) // Filter stories newer than 24 hours
                                                 .map(story -> mapToStoryResponse(story, user))
                                 )
@@ -100,14 +98,15 @@ public class StoryService {
         });
     }
 
-    private Flux<Long> generateRandomIds() {
+    private Flux<Object> generateRandomIds() {
         Random random = new Random();
-        List<Long> randomUserId = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Long randomNumber = (long) random.nextInt(1, 5);
-            randomUserId.add(randomNumber);
-        }
-
-        return (Flux<Long>) randomUserId;
+        return Flux.create(sink -> {
+            for (int i = 0; i < 5; i++) {
+                Long randomNumber = (long) random.nextInt(1, 6); // Assuming IDs range from 1 to 5
+                sink.next(randomNumber);
+            }
+            sink.complete();
+        }).distinct().take(5);
     }
+
 }

@@ -7,6 +7,8 @@ import com.app.project.model.User;
 import com.app.project.repository.ConnectionRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -99,12 +101,14 @@ public class ConnectionService {
                 .build();
     }
 
+    @Cacheable(value = "followingCache", key = "#userId")
     public List<Long> getFollowingByUserId(Long userId) {
         return connectionRepository.findByUserId(userId)
                 .map(Connection::getFollowing)
                 .orElse(Collections.emptyList());
     }
 
+    @CacheEvict(value = {"followersCache", "followingCache"}, key = "#userId")
     public void addFollowing(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && !connection.getFollowing().contains(followingId)) {
@@ -114,6 +118,7 @@ public class ConnectionService {
         }
     }
 
+    @CacheEvict(value = {"followersCache", "followingCache"}, key = "#userId")
     public void removeFollowing(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && connection.getFollowing().contains(followingId)) {
@@ -122,13 +127,14 @@ public class ConnectionService {
             connectionRepository.save(connection);
         }
     }
-
+    @Cacheable(value = "followersCache", key = "#userId")
     public List<Long> getFollowersByUserId(Long userId) {
         return connectionRepository.findByUserId(userId)
                 .map(Connection::getFollowers)
                 .orElse(Collections.emptyList());
     }
 
+    @CacheEvict(value = {"followersCache", "followingCache"}, allEntries = true)
     public void addFollower(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && !connection.getFollowers().contains(followingId)) {
@@ -137,7 +143,7 @@ public class ConnectionService {
             connectionRepository.save(connection);
         }
     }
-
+    @CacheEvict(value = {"followersCache", "followingCache"}, allEntries = true)
     public void removeFollowers(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && connection.getFollowers().contains(followingId)) {
@@ -147,6 +153,7 @@ public class ConnectionService {
         }
     }
 
+    @Cacheable(value = "suggestedFriendsCache", key = "#userId")
     public Flux<SuggestedFriendsResponse> getSuggestedFriends(Long userId) {
         List<Long> userFriends = getFollowingByUserId(userId);
         Set<Long> userFriendsSet = new HashSet<>(userFriends);

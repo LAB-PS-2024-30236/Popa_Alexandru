@@ -11,10 +11,12 @@ import {dataRequested} from "./model/effects";
 import {authSelect} from "../auth-login-widget/model/selectors";
 import {closeSidebar} from "../../redux/core/layout/reducers";
 import {closeProfile} from "../profile-overview-widget/model/reducers";
+import {Post} from "../../types/content";
 const FeedMainWidget: React.FC = () => {
     const userId = useSelector(sessionSelect.userId);
     const jwtToken = useSelector(sessionSelect.jwtToken);
     const feedPosts = useSelector(feedSelect.feedPosts);
+    const feedRandomPosts: Post [] = useSelector(feedSelect.feedRandomPosts);
     const feedStories = useSelector(feedSelect.feedStories);
     const isLogged = useSelector(authSelect.isLogged);
 
@@ -34,8 +36,13 @@ const FeedMainWidget: React.FC = () => {
    return (
        <div className="widget-main">
            <div className="feed-central">
+               <>
                <StorySlider stories={feedStories}/>
-              <PostList posts={feedPosts}/>
+               <PostList posts={feedPosts}/>
+               <p className="end-of-post">You are now seeing random posts because the posts from your friends ended</p>
+
+               {console.log("here"+ feedRandomPosts.toString())}
+               </>
            </div>
            <FeedSidebar />
        </div>

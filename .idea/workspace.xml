@@ -4,21 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66dcbf6-9c25-404c-8bb5-c4383adb8a25" name="Changes" comment="fgrfew">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy-datasource.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/laboratoare.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.jpb/jpb-settings.xml" afterDir="false" />
+    <list default="true" id="c66dcbf6-9c25-404c-8bb5-c4383adb8a25" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,49 +76,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword.executor": "Debug",
-    "JUnit.UserServiceTest.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CommentsReactionsProjectApplication.executor": "Run",
-    "Spring Boot.ConnectionsProjectApplication.executor": "Run",
-    "Spring Boot.ContentProjectApplication.executor": "Run",
-    "Spring Boot.MessagingProjectApplication.executor": "Run",
-    "Spring Boot.NotificationProjectApplication.executor": "Run",
-    "Spring Boot.SearchProjectApplication.executor": "Run",
-    "Spring Boot.UserProjectApplication.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/polihack/Polihack-14",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "rest.client.default.execution.environment": "dev",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "D:\\an3_facultate\\sem1\\IS\\laboratoare\\SocialApp-Fe\\social-media-front\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JUnit.ConnectionServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ContentServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ContentServiceTest.getRandomPostsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MessageServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoryServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CommentsReactionsProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConnectionsProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ContentProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MessagingProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.NotificationProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.SearchProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/polihack/Polihack-14&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;rest.client.default.execution.environment&quot;: &quot;dev&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\an3_facultate\\sem1\\IS\\laboratoare\\SocialApp-Fe\\social-media-front\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql",
-      "mongo"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;,
+      &quot;mongo&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="Push.Settings">
     <option name="SHOW_DETAILS_PANEL" value="false" />
   </component>
@@ -146,29 +138,16 @@
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
+        <option value="JUnit" />
         <option value="MicronautRunConfigurationType" />
         <option value="QuarkusRunConfigurationType" />
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword">
-    <configuration name="generated-requests | #10" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="10" requestIdentifier="#10" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="generated-requests | #34" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="34" requestIdentifier="#34" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="All in project (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="project (1)" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="project (7)" />
+  <component name="RunManager" selected="Spring Boot.ContentProjectApplication">
+    <configuration name="ConnectionServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project (2)" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.app.project.service.*" />
@@ -176,14 +155,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.app.project.service" />
-      <option name="MAIN_CLASS_NAME" value="com.app.project.service.UserServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="com.app.project.service.ConnectionServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="project (7)" />
+    <configuration name="ContentServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project (3)" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.app.project.service.*" />
@@ -191,9 +170,54 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.app.project.service" />
-      <option name="MAIN_CLASS_NAME" value="com.app.project.service.UserServiceTest" />
-      <option name="METHOD_NAME" value="changePasswordChange_ValidOldPassword_ChangesPassword" />
+      <option name="MAIN_CLASS_NAME" value="com.app.project.service.ContentServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContentServiceTest.getRandomPostsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project (3)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.project.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.app.project.service" />
+      <option name="MAIN_CLASS_NAME" value="com.app.project.service.ContentServiceTest" />
+      <option name="METHOD_NAME" value="getRandomPostsTest" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project (4)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.project.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.app.project.service" />
+      <option name="MAIN_CLASS_NAME" value="com.app.project.service.MessageServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StoryServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="project (3)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.project.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.app.project.service" />
+      <option name="MAIN_CLASS_NAME" value="com.app.project.service.StoryServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -248,11 +272,11 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="HTTP Request.generated-requests | #10" />
-      <item itemvalue="HTTP Request.generated-requests | #34" />
-      <item itemvalue="JUnit.UserServiceTest" />
-      <item itemvalue="JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword" />
-      <item itemvalue="JUnit.All in project (1)" />
+      <item itemvalue="JUnit.ConnectionServiceTest" />
+      <item itemvalue="JUnit.ContentServiceTest" />
+      <item itemvalue="JUnit.ContentServiceTest.getRandomPostsTest" />
+      <item itemvalue="JUnit.MessageServiceTest" />
+      <item itemvalue="JUnit.StoryServiceTest" />
       <item itemvalue="Spring Boot.CommentsReactionsProjectApplication" />
       <item itemvalue="Spring Boot.ConnectionsProjectApplication" />
       <item itemvalue="Spring Boot.ContentProjectApplication" />
@@ -263,11 +287,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword" />
-        <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.All in project (1)" />
-        <item itemvalue="HTTP Request.generated-requests | #34" />
-        <item itemvalue="HTTP Request.generated-requests | #10" />
+        <item itemvalue="JUnit.StoryServiceTest" />
+        <item itemvalue="JUnit.MessageServiceTest" />
+        <item itemvalue="JUnit.ContentServiceTest.getRandomPostsTest" />
+        <item itemvalue="JUnit.ContentServiceTest" />
+        <item itemvalue="JUnit.ConnectionServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -364,7 +388,11 @@
       <workItem from="1710504417992" duration="3143000" />
       <workItem from="1711045884000" duration="1933000" />
       <workItem from="1711104124561" duration="666000" />
-      <workItem from="1711120814325" duration="2785000" />
+      <workItem from="1711120814325" duration="3627000" />
+      <workItem from="1711652559551" duration="67000" />
+      <workItem from="1711822647686" duration="167000" />
+      <workItem from="1712236353984" duration="13002000" />
+      <workItem from="1712304860696" duration="2470000" />
     </task>
     <task id="LOCAL-00001" summary="Solved problems for user">
       <option name="closed" value="true" />
@@ -565,17 +593,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/Connections/src/main/java/com/app/project/service/ConnectionService.java</url>
-          <line>47</line>
+          <line>49</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/service/UserService.java</url>
-          <line>75</line>
+          <line>79</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/service/UserService.java</url>
-          <line>76</line>
+          <line>80</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

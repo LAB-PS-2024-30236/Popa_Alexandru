@@ -5,11 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f7df78a-310e-46ae-9163-7b081fa4e5bf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/core/Credits/Credits.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/core/Credits/Credits.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/feed/FeedSidebar/FeedSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/feed/FeedSidebar/FeedSidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/messaging/ChatOverview/ChatOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/messaging/ChatOverview/ChatOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/widgets/auth-login-widget/AuthLoginWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/auth-login-widget/AuthLoginWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/0.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/0.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/1.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/1.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/11.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/11.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/2.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/2.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/3.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/3.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/4.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/4.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/5.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/5.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/6.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/6.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/9.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/9.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/index.pack" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/index.pack" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/default-development/index.pack.old" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/default-development/index.pack.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.cache/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.cache/tsconfig.tsbuildinfo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/feed-main-widget/FeedMainWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/feed-main-widget/FeedMainWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/feed-main-widget/model/defaultState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/feed-main-widget/model/defaultState.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/feed-main-widget/model/selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/feed-main-widget/model/selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/feed-main-widget/model/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/feed-main-widget/model/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/feed-main-widget/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/feed-main-widget/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/profile-overview-widget/model/effects.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/profile-overview-widget/model/effects.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/widgets/profile-overview-widget/model/reducers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/widgets/profile-overview-widget/model/reducers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/src/main/java/com/app/project/CommentsReactionsProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/src/main/java/com/app/project/CommentsReactionsProjectApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/src/main/java/com/app/project/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/src/main/java/com/app/project/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/src/main/java/com/app/project/service/ReactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/CommentsReactions/src/main/java/com/app/project/service/ReactionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Connections/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Connections/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/ConnectionsProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/ConnectionsProjectApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/model/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/model/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/service/ConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Connections/src/main/java/com/app/project/service/ConnectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/ContentProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/ContentProjectApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/repository/ContentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/service/ContentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/service/ContentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/service/StoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Content/src/main/java/com/app/project/service/StoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Messaging/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Messaging/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Notifications/src/main/java/com/app/project/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Notifications/src/main/java/com/app/project/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/Search/src/main/java/com/app/project/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/Search/src/main/java/com/app/project/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/User/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/User/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/User/src/main/java/com/app/project/UserProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/User/src/main/java/com/app/project/UserProjectApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/User/src/main/java/com/app/project/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/User/src/main/java/com/app/project/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SocialApp/User/src/main/java/com/app/project/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../SocialApp/User/src/main/java/com/app/project/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +58,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -35,7 +76,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/an3_facultate/sem1/IS/laboratoare/SocialApp-Fe/social-media-front&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -61,6 +102,11 @@
       <workItem from="1709909778532" duration="1366000" />
       <workItem from="1709978713743" duration="1278000" />
       <workItem from="1710452024834" duration="1000" />
+      <workItem from="1711652544128" duration="75000" />
+      <workItem from="1711822641487" duration="190000" />
+      <workItem from="1711895294126" duration="602000" />
+      <workItem from="1712236347847" duration="5662000" />
+      <workItem from="1712304852695" duration="2120000" />
     </task>
     <servers />
   </component>
