@@ -41,7 +41,7 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @GetMapping(value = "/allUsers", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/allUsers")
     public Flux<User> getAllUsers() {
         return userService.getAllUsers();
     }

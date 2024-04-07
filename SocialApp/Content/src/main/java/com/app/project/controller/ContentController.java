@@ -36,9 +36,9 @@ public class ContentController {
         return ResponseEntity.ok(contentService.getUserPosts(userId));
     }
 
-    @GetMapping("/getRandomPosts")
-    public Flux<ContentResponse> getRandomPosts() {
-        return contentService.getRandomPosts();
+    @GetMapping("/getRandomPosts/{userId}")
+    public Flux<ContentResponse> getRandomPosts(@PathVariable Long userId) {
+        return contentService.getRandomPosts(userId);
     }
 
 }

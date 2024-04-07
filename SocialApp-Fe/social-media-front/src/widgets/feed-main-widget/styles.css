@@ -5,10 +5,82 @@
     align-items: center;
 }
 
-.end-of-post{
-    padding: 1rem;
-    text-wrap: normal;
+.end-of-post {
+    padding: 3rem 1rem 1rem 1rem;
+    text-align: center; /* Center align the text, if desired */
+    color: #333; /* Dark grey color for the text */
+    font-size: 1rem; /* Adjust font size as needed */
+    margin-bottom: 2rem; /* Add some space below the text */
 }
+
+.buttons-container {
+    display: flex;
+    gap: 1rem; /* Space between buttons */
+    padding-bottom: 5rem;
+}
+
+
+/* CSS */
+.button-75 {
+    align-items: center;
+    background-image: linear-gradient(135deg, #f34079 40%, #fc894d);
+    border: 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-family: "Codec cold", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    height: 54px;
+    justify-content: center;
+    letter-spacing: .4px;
+    line-height: 1;
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 3px;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-75:active {
+    outline: 0;
+}
+
+.button-75:hover {
+    outline: 0;
+}
+
+.button-75 span {
+    transition: all 200ms;
+}
+
+.button-75:hover span {
+    transform: scale(.9);
+    opacity: .75;
+}
+
+@media screen and (max-width: 991px) {
+    .button-75 {
+        font-size: 15px;
+        height: 50px;
+    }
+
+    .button-75 span {
+        line-height: 50px;
+    }
+}
+
+.button-discover:hover, .button-back-to-top:hover {
+    background-color: #0056b3; /* Darken button on hover */
+}
+
 @media (max-width: 970px) {
     .feed-central {
         width: 70vw;

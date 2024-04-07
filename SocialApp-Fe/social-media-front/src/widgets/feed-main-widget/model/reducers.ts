@@ -11,6 +11,9 @@ const feedSlice = createSlice({
         feedPostsSuccess: (state, action: PayloadAction<Post[]>) => {
             state.feedPosts = action.payload;
         },
+        feedRandomPostsSuccess: (state, action: PayloadAction<Post[]>) => {
+            state.feedRandomPosts = action.payload;
+        },
         suggestedPostsSuccess: (state, action: PayloadAction<Post[]>) => {
             state.suggestedPosts = action.payload;
         },
@@ -23,5 +26,5 @@ const feedSlice = createSlice({
     }
 });
 
-export const { feedPostsSuccess, suggestedPostsSuccess, suggestedFriendsSuccess, feedStoriesSuccess } = feedSlice.actions;
+export const { feedPostsSuccess,feedRandomPostsSuccess, suggestedPostsSuccess, suggestedFriendsSuccess, feedStoriesSuccess } = feedSlice.actions;
 export default feedSlice.reducer;

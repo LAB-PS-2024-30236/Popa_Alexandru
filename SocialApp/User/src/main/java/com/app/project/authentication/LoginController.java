@@ -1,7 +1,9 @@
 package com.app.project.authentication;
 
 import com.app.project.model.User;
+import com.app.project.model.UsersLogged;
 import com.app.project.service.UserService;
+import com.app.project.service.UsersLoggedService;
 import io.jsonwebtoken.*;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
@@ -15,9 +17,10 @@ import reactor.core.publisher.Mono;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;
-
 
 
 @RestController
@@ -26,10 +29,13 @@ import java.util.Date;
 public class LoginController {
 
     private final UserService userService;
+
+    private final UsersLoggedService usersLoggedService;
     private static final String SECRET_KEY = "ssdjfjfjfjrfffffssdjfjfjfjrfffffssdjfjfjff3422";
 
-    public LoginController(@NonNull final UserService userService) {
+    public LoginController(@NonNull final UserService userService, UsersLoggedService usersLoggedService) {
         this.userService = userService;
+        this.usersLoggedService = usersLoggedService;
     }
 
     @PostMapping("/api/login")
@@ -46,13 +52,18 @@ public class LoginController {
 
         if (user != null && passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             String token = String.valueOf(createJWT(user.getUserId().toString(), user.getEmail(), user.getRole(), 999999999));
+
+            usersLoggedService.addEntry(UsersLogged.builder()
+                    .userId(user.getUserId())
+                    .timeWhenLogged(Timestamp.from(Instant.now()))
+                    .build());
             return Mono.just(ResponseEntity.ok(new JsonLoginResponse(token, user)));
         } else {
             return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null));
         }
     }
 
-    public static String createJWT(String id, String subject,String role, long ttlMillis) {
+    public static String createJWT(String id, String subject, String role, long ttlMillis) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = System.currentTimeMillis();
@@ -87,6 +98,6 @@ public class LoginController {
                 .build()
                 .parseClaimsJws(jwt);
 
-       return jws.getBody();
+        return jws.getBody();
     }
 }

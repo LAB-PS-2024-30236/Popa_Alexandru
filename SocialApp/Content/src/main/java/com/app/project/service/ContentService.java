@@ -7,10 +7,7 @@ import com.app.project.model.User;
 import com.app.project.repository.ContentRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,19 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 @Service
 public class ContentService {
-    @Autowired
-    private WebClient webClient;
-
-    @Autowired
-    private ContentRepository contentRepository;
-
     public static List<ContentSection> sectionList = List.of(
             new ContentSection(
                     "Terms and Conditions of Use for Yolo",
@@ -50,13 +43,16 @@ public class ContentService {
                     "At Yolo, we specialize in [describe your main services or products], offering top-notch [specific aspects of services/products] to our valued customers. Our journey began in [year], with a vision to [original mission or vision statement]. Since then, our path has been marked by [significant milestones and achievements], reflecting our commitment to excellence. Our mission at Yolo is to [revised or expanded mission statement]. We take pride in our [unique selling points]. Our diverse team of experts brings a wealth of experience and passion to [specific areas of expertise]. At the heart of our success is our belief in [core values or principles]. As we look to the future, we are excited to continue [future goals or vision]. We are grateful for the opportunity to serve you and thank you for choosing Yolo. Your trust and support inspire us to keep striving for excellence every day."
             )
     );
+    @Autowired
+    private WebClient webClient;
+    @Autowired
+    private ContentRepository contentRepository;
 
-    @Cacheable(value = "suggestedPostsCache", key = "'suggestedPosts:' + #userId")
     public Flux<ContentResponse> getSuggestedPosts(@NonNull Long userId) {
         return Flux.merge(getUserFriends(userId).map(this::getPosts));
     }
 
-    @Cacheable(value = "postsCache", key = "'posts:' + #userId")
+
     public Flux<ContentResponse> getPosts(Long userId) {
         return getUserFriends(userId)
                 .flatMap(friendId ->
@@ -69,17 +65,17 @@ public class ContentService {
                                 }));
     }
 
-    @Cacheable(value = "userPostsCache", key = "#userId")
+
     public List<Content> getUserPosts(Long userId) {
         return contentRepository.findAllByUserId(userId);
     }
 
-    @Cacheable(value = "randomPostsCache", key = "'randomPosts'")
-    public Flux<ContentResponse> getRandomPosts() {
-        return generateRandomIds()
+
+    public Flux<ContentResponse> getRandomPosts(Long userId) {
+        return generateRandomIds(userId)
                 .flatMap(friendId ->
                         getUser((Long) friendId)
-                                .zipWith(Mono.just(contentRepository.findLatestByUserId((Long) friendId,  PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "datePosted"))).getContent().get(0)))
+                                .zipWith(Mono.just(contentRepository.findLatestByUserId((Long) friendId, PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "datePosted"))).getContent().get(0)))
                                 .map(tuple -> {
                                     User user = tuple.getT1();
                                     Content content = tuple.getT2();
@@ -137,23 +133,62 @@ public class ContentService {
         });
     }
 
-    private Flux<Object> generateRandomIds() {
-        Random random = new Random();
-        return Flux.generate(sink -> {
-            Long randomNumber = (long) random.nextInt(1, 5);
-            sink.next(randomNumber);
-            if (randomNumber == 5) {
-                sink.complete();
-            }
-        }).distinct().take(5);
+    private List<Long> getUsers() {
+        WebClient webClient = WebClient.create(); // Ensure you initialize your WebClient instance appropriately
+
+        return webClient.get()
+                .uri("http://localhost:8080/api/user/allUsers")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyIiwiaWF0IjoxNjk5NDY1MDY1LCJzdWIiOiJocnViYW5hbmRyYWRhQGdtYWlsLmNvbSIsImlzcyI6InBvcGEmcm9iZXJ0IiwiZXhwIjoxNzAwNDY1MDY1fQ.yIRaCz1opmBzRtCTVjOBpb4bNf2O5h_BZikh4ArLgj4")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(User.class)
+                .map(User::getUserId)
+                .collectList()
+                .block();
     }
 
-    @CacheEvict(value = {"userPostsCache", "postsCache", "suggestedPostsCache"}, allEntries = true)
+    private Flux<Long> generateRandomIds(Long userId) {
+        return Flux.create(sink -> {
+            List<Long> availableIds = getUsers();
+            Flux<Long> friendIdsFlux = getUserFriends(userId);
+            Mono<List<Long>> friendIdsListMono = friendIdsFlux.collectList();
+            List<Long> friendIdsList = friendIdsListMono.block();
+            availableIds.removeAll(friendIdsList);
+            availableIds.remove(userId);
+            if (availableIds.isEmpty()) {
+                sink.error(new IllegalStateException("The list of available IDs is empty."));
+                return;
+            }
+
+            Random random = new Random();
+            // Assuming you want to generate up to 5 IDs, as per your previous implementation
+            for (int i = 0; i < 5; i++) {
+                if (availableIds.isEmpty()) {
+                    // This additional check is for scenarios where the list might become empty
+                    // during the generation process, though it's more relevant if IDs are being
+                    // removed after selection.
+                    sink.error(new IllegalStateException("Ran out of available IDs to select."));
+                    return;
+                }
+                int index = random.nextInt(availableIds.size());
+                Long selectedId = availableIds.get(index);
+                sink.next(selectedId);
+                // If you're removing selected IDs from the list to ensure uniqueness:
+                availableIds.remove(index);
+            }
+            sink.complete();
+        });
+    }
+
+
+
+
+
     public Content addPost(Content post) {
         return contentRepository.save(post);
     }
 
-    @CacheEvict(value = {"userPostsCache", "postsCache", "suggestedPostsCache", "randomPostsCache"}, allEntries = true)
+
     public void removePost(Long postId) {
         if (contentRepository.existsById(postId)) {
             contentRepository.deleteById(postId);
