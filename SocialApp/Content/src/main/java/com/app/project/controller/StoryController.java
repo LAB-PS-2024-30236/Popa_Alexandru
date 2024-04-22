@@ -1,5 +1,6 @@
 package com.app.project.controller;
 
+import com.app.project.model.Story;
 import com.app.project.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,5 +22,10 @@ public class StoryController {
     @GetMapping("/getRandomFeedStories")
     public Flux<StoryResponse> getRandomFeedStories() {
         return storyService.getRandomStories();
+    }
+
+    @PostMapping("/addStory")
+    public Story addStory(@RequestBody Story story){
+        return storyService.addStory(story);
     }
 }

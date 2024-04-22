@@ -52,8 +52,16 @@
 .profile-posts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 1fr;
     gap: 2px;
 }
+
+.profile-posts-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will ensure that your images cover the square area without stretching */
+}
+
 
 .profile-no-posts {
     display: flex;
@@ -88,4 +96,17 @@
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+}
+
+.profile-posts-grid {
+    padding: 8%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates three columns */
+    grid-gap: 10px; /* Adjust the gap size as needed */
+}
+
+.profile-post-image {
+    width: 100%;
+    aspect-ratio: 1; /* Makes the image boxes square */
+    object-fit: cover; /* Ensures the images cover their boxes without stretching */
 }

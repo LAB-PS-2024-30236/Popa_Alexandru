@@ -32,19 +32,6 @@ export const dataRequested = async({userId, myUserId, jwtToken, dispatch}: Profi
     }).catch((error) => {
         console.error(error);
     })
-
-    await request({
-        url: CONTENT_BASE_URL + '/getRandomPosts',
-        method: 'GET',
-        headers: {
-            'Authorization' : "Bearer " + jwtToken
-        }
-    }).then((response) => {
-        dispatch(addRandomPosts(response.data));
-    }).catch((error) => {
-        console.error(error);
-    })
-
     await request({
         url: CONNECTIONS_BASE_URL + '/getUserStreak/' + userId,
         method: 'GET',

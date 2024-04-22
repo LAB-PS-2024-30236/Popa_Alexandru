@@ -27,6 +27,14 @@
     margin-right: 10px
 }
 
+.post-profile-photo:hover{
+    cursor: pointer;
+}
+
+.post-username:hover{
+    cursor: pointer;
+}
+
 .post-image-container {
     display: flex;
     align-items: center;

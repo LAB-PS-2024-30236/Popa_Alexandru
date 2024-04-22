@@ -3,13 +3,19 @@ package com.app.project.controller;
 
 import com.app.project.authentication.JsonLoginResponse;
 import com.app.project.model.User;
+import com.app.project.model.UsersLogged;
 import com.app.project.service.UserService;
+import com.app.project.service.UsersLoggedService;
 import lombok.NonNull;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
 
 import static com.app.project.authentication.LoginController.createJWT;
 
@@ -19,14 +25,20 @@ import static com.app.project.authentication.LoginController.createJWT;
 public class UserController {
 
     private final UserService userService;
+    private final UsersLoggedService usersLoggedService;
 
-    public UserController(@NonNull UserService userService) {
+    public UserController(@NonNull UserService userService, UsersLoggedService usersLoggedService) {
         this.userService = userService;
+        this.usersLoggedService = usersLoggedService;
     }
 
     @PostMapping("/register")
     public Mono<ResponseEntity<JsonLoginResponse>> saveUser(@RequestBody @NonNull final UserRegisterRequest request) {
         var user = userService.saveUserRegister(request);
+        usersLoggedService.addEntry(UsersLogged.builder()
+                .userId(user.getUserId())
+                .timeWhenLogged(Timestamp.from(Instant.now()))
+                .build());
         String token = String.valueOf(createJWT(user.getUserId().toString(), user.getEmail(), "user", 999999999));
         return Mono.just(ResponseEntity.ok(new JsonLoginResponse(token, user)));
     }
@@ -41,7 +53,7 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @GetMapping(value = "/allUsers", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/allUsers")
     public Flux<User> getAllUsers() {
         return userService.getAllUsers();
     }
@@ -92,6 +104,15 @@ public class UserController {
     @GetMapping("getUserBio/{userId}")
     public ResponseEntity<String> getUserBio(@PathVariable Long userId){
         return ResponseEntity.ok(userService.getUserBio(userId));
+    }
+
+    @GetMapping("/search/{username}")
+    public ResponseEntity<List<User>> getUsersByUsernameContaining(@PathVariable String username) {
+        List<User> users = userService.getUsersByUsernameContaining(username);
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(users);
     }
 
 }

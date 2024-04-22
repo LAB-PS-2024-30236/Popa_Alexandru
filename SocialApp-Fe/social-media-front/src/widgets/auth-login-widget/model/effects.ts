@@ -1,5 +1,5 @@
 import {USER_BASE_URL} from "../../../utils/constants";
-import {loginFailure, loginSuccess} from "./reducers";
+import {loginFailure, loginSuccess, logout} from "./reducers";
 import {getSessionState, LoginProps} from "./types";
 import {request} from "../../../components/core/Request/request";
 import {continueSession, startSession} from "../../../redux/core/session/reducers";
@@ -33,3 +33,17 @@ export const getSession = async ({ userId, dispatch }: getSessionState) => {
         console.error(err);
     })
 }
+
+export const logoutUser = async ({ userId, dispatch }: getSessionState) => {
+    await request({
+        url: USER_BASE_URL + '/logout/'+ userId,
+        method: 'DELETE',
+    }).then(() => {
+        console.log("here")
+        dispatch(logout());
+
+    }).catch((error) => {
+        console.error('Logout Error:', error);
+
+    });
+};

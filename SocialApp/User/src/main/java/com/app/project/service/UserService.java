@@ -13,9 +13,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -24,8 +21,8 @@ import reactor.core.scheduler.Schedulers;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.time.Duration;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -36,7 +33,7 @@ public class UserService {
 
     private static final String SECRET_KEY = "ssdjfjfjfjrfffffssdjfjfjfjrfffffssdjfjfjff3422";
 
-    @CachePut(value = "userCache", key = "#result.userId")
+
     public User saveUserRegister(@NonNull UserRegisterRequest registerRequest) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String[] nameParts = registerRequest.getFullName().split(" ");
@@ -52,6 +49,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhoneNumber(registerRequest.getPhoneNumber());
         user.setRole("user");
+        user.setStatus(false);
+        user.setProfilePicture("https://utfs.io/f/6ad95e31-8d18-4082-818b-fc24319d8c2e-boiebq.jpg");
         if (nameParts.length == 2) {
             user.setFirstName(nameParts[0]);
             user.setLastName(nameParts[nameParts.length - 1]);
@@ -77,7 +76,7 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (passwordEncoder.matches( oldPassword, user.getPassword())) {
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
         }
@@ -94,15 +93,14 @@ public class UserService {
         }
     }
 
-    @Cacheable(value = "userCache", key = "#id")
+
     public Mono<User> getUser(Long id) {
         return Mono.just(userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found")));
     }
 
     public Flux<User> getAllUsers() {
         return Flux.defer(() -> Flux.fromIterable(userRepository.findAll()))
-                .subscribeOn(Schedulers.boundedElastic())
-                .delayElements(Duration.ofSeconds(1));
+                .subscribeOn(Schedulers.boundedElastic());
     }
 
     public static Claims decodeJWT(String jwt) {
@@ -129,25 +127,25 @@ public class UserService {
         return findByPhoneNumber(phoneNumber) != null;
     }
 
-    @Cacheable(value = "userCache", key = "#email")
+
     public User findByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return user.orElse(null);
     }
 
-    @Cacheable(value = "userCache", key = "#username")
+
     public User findByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
         return user.orElse(null);
     }
 
-    @Cacheable(value = "userCache", key = "#phoneNumber")
+
     public User findByPhoneNumber(String phoneNumber) {
         Optional<User> user = userRepository.findByPhoneNumber(phoneNumber);
         return user.orElse(null);
     }
 
-    public String getUserBio(Long userId){
+    public String getUserBio(Long userId) {
         return userRepository.findByUserId(userId).get().getBio();
     }
 
@@ -212,7 +210,7 @@ public class UserService {
 
     }
 
-    @CachePut(value = "userCache", key = "#result.userId")
+
     public User updateUser(User user) {
         if (!userRepository.existsById(user.getUserId())) {
             throw new RuntimeException("User not found with id: " + user.getUserId());
@@ -220,7 +218,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @CacheEvict(value = "userCache", key = "#userId")
+
     public void deleteUser(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new RuntimeException("User not found with id: " + userId);
@@ -233,4 +231,7 @@ public class UserService {
         return Mono.just(userRepository.findById(id).get());
     }
 
+    public List<User> getUsersByUsernameContaining(String username) {
+        return userRepository.findByUsernameContaining(username);
+    }
 }

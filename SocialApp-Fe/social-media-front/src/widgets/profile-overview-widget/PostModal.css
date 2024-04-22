@@ -1,0 +1,120 @@
+.post-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.post-modal-content {
+    position: relative;
+    background-color: #fff;
+    width: 500px;  /* Fixed width */
+    height: 600px; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden; /* This will hide any overflow */
+}
+
+.post-modal-header {
+    flex-basis: 60px; /* Fixed height for the header */
+    flex-shrink: 0; /* Prevent the header from shrinking */
+    display: flex;
+    align-items: center;
+    padding: 8px 16px ;
+}
+
+.post-modal-username {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.post-modal-username-image{
+    width: 6%;
+    border-radius: 70%;
+}
+
+.post-modal-image {
+    flex-basis: 340px; /* Fixed height for the image */
+    flex-shrink: 0; /* Prevent the image from shrinking */
+    width: 100%;
+    object-fit: contain; /* Will ensure the full image is visible */
+    max-height: 65%;
+}
+
+.post-modal-info {
+    flex-basis: 200px; /* Fixed height for the info */
+    flex-shrink: 0; /* Prevent the info from shrinking */
+    padding: 16px;
+    overflow-y: auto; /* Add scroll for overflow content */
+}
+
+.post-modal-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 4px;
+}
+
+.post-modal-icons>img{
+    width: 6%;
+}
+
+.post-modal-bookmark {
+    margin-left: auto;
+}
+
+.post-modal-likes {
+    font-weight: bold;
+}
+
+
+.post-modal-description {
+    margin-bottom: 8px;
+}
+
+.post-modal-date {
+    color: #8e8e8e;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.post-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-nav-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #fff;
+    color: #000000;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal-nav-button:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-nav-button.prev {
+    position: absolute;
+    left: 10px;
+}
+
+.modal-nav-button.next {
+    position: absolute;
+    right: 10px;
+}

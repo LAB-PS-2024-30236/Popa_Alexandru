@@ -7,8 +7,6 @@ import com.app.project.model.User;
 import com.app.project.repository.ConnectionRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,10 +35,10 @@ public class ConnectionService {
         boolean userFollowsPerson = userFollowing.contains(personId);
         boolean personFollowsUser = personFollowing.contains(userId);
 
-        if (userFollowsPerson && personFollowsUser) {
-            return "Follow Back";
-        } else if (userFollowsPerson) {
+        if (userFollowsPerson) {
             return "Following";
+        } else if (personFollowsUser) {
+            return "Follow back";
         }
 
         return "Follow";
@@ -55,30 +53,43 @@ public class ConnectionService {
         boolean userFollowsPerson = userFollowing.contains(personId);
         boolean personFollowsUser = personFollowing.contains(userId);
 
-        if (userFollowsPerson && personFollowsUser) {
+        if (userFollowsPerson) {
             removeFollowing(userId, personId);
-            removeFollowers(personId,userId);
-        } else if (userFollowsPerson) {
-            removeFollowing(userId, personId);
-            removeFollowers(personId,userId);
+            removeFollowers(personId, userId);
         } else if (personFollowsUser) {
-            addFollowing(userId, personId);
+
             if (connectionRepository.findByUserId(personId).isEmpty()) {
                 addUser(personId, List.of(), List.of(userId));
+                if (connectionRepository.findByUserId(userId).isEmpty()) {
+                    addUser(userId, List.of(personId), List.of());
+                }
             } else {
-                addFollowing(personId, userId);
-                addFollowing(userId,personId);
+                addFollower(personId, userId);
+                addFollowing(userId, personId);
+            }
+            if (connectionRepository.findByUserId(userId).isEmpty()) {
+                addUser(userId, List.of(personId), List.of());
+                addFollower(personId, userId);
+            } else {
+                addFollowing(userId, personId);
+                addFollower(personId, userId);
             }
 
         } else {
-            if (connectionRepository.findByUserId(userId).isEmpty()){
-                addUser(userId,List.of(personId), List.of());
-            } else{
+            if (connectionRepository.findByUserId(personId).isEmpty()) {
+                addUser(personId, List.of(), List.of(userId));
+                if (connectionRepository.findByUserId(userId).isEmpty()) {
+                    addUser(userId, List.of(personId), List.of());
+                }
+            } else {
+                addFollower(personId, userId);
                 addFollowing(userId, personId);
             }
-                if (connectionRepository.findByUserId(personId).isEmpty()) {
-                addUser(personId, List.of(), List.of(userId));
+            if (connectionRepository.findByUserId(userId).isEmpty()) {
+                addUser(userId, List.of(personId), List.of());
+                addFollower(personId, userId);
             } else {
+                addFollowing(userId, personId);
                 addFollower(personId, userId);
             }
         }
@@ -101,14 +112,13 @@ public class ConnectionService {
                 .build();
     }
 
-    @Cacheable(value = "followingCache", key = "#userId")
+
     public List<Long> getFollowingByUserId(Long userId) {
         return connectionRepository.findByUserId(userId)
                 .map(Connection::getFollowing)
                 .orElse(Collections.emptyList());
     }
 
-    @CacheEvict(value = {"followersCache", "followingCache"}, key = "#userId")
     public void addFollowing(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && !connection.getFollowing().contains(followingId)) {
@@ -118,7 +128,7 @@ public class ConnectionService {
         }
     }
 
-    @CacheEvict(value = {"followersCache", "followingCache"}, key = "#userId")
+
     public void removeFollowing(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && connection.getFollowing().contains(followingId)) {
@@ -127,14 +137,15 @@ public class ConnectionService {
             connectionRepository.save(connection);
         }
     }
-    @Cacheable(value = "followersCache", key = "#userId")
+
+
     public List<Long> getFollowersByUserId(Long userId) {
         return connectionRepository.findByUserId(userId)
                 .map(Connection::getFollowers)
                 .orElse(Collections.emptyList());
     }
 
-    @CacheEvict(value = {"followersCache", "followingCache"}, allEntries = true)
+
     public void addFollower(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && !connection.getFollowers().contains(followingId)) {
@@ -143,7 +154,8 @@ public class ConnectionService {
             connectionRepository.save(connection);
         }
     }
-    @CacheEvict(value = {"followersCache", "followingCache"}, allEntries = true)
+
+
     public void removeFollowers(Long userId, Long followingId) {
         Connection connection = connectionRepository.findByUserId(userId).orElse(null);
         if (connection != null && connection.getFollowers().contains(followingId)) {
@@ -153,7 +165,7 @@ public class ConnectionService {
         }
     }
 
-    @Cacheable(value = "suggestedFriendsCache", key = "#userId")
+
     public Flux<SuggestedFriendsResponse> getSuggestedFriends(Long userId) {
         List<Long> userFriends = getFollowingByUserId(userId);
         Set<Long> userFriendsSet = new HashSet<>(userFriends);

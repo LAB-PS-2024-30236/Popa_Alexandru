@@ -1,0 +1,127 @@
+/* SimpleModal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.modal-content {
+    position: relative;
+    background-color: #000; /* Black background for bars above and below the image */
+    border-radius: 8px;
+    width: 500px; /* Fixed width */
+    /*height: 500px; !* Fixed height *!*/
+    display: flex;
+    align-items: center; /* This centers the image vertically */
+    justify-content: center; /* This centers the image horizontally */
+    overflow: hidden; /* Ensures no scrolling occurs and content fits within the modal */
+}
+
+.modal-content img {
+    max-width: 100%; /* Limits the image width to the modal width */
+    max-height: 100%; /* Limits the image height to the modal height */
+    object-fit: contain; /* Ensures the aspect ratio is maintained and the image fits within the container */
+}
+
+.modal-nav-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #fff;
+    color: #000000;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+.modal-nav-button:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box; /* Includes padding in the width */
+}
+
+.modal-profile-picture {
+    width: 32px; /* Adjust size as needed */
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid white; /* Instagram-style highlight */
+    object-fit: cover;
+}
+
+.modal-username {
+    color: #fff;
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 14px; /* Adjust size as needed */
+}
+:root {
+    --modal-header-height: 50px; /* Adjust this value to match your actual header height */
+}
+
+/* Adjust the buttons to sit on the image rather than outside */
+.modal-nav-button-story {
+    position: absolute;
+    top: var(--modal-header-height); /* Start buttons just below the header */
+    bottom: 0;
+    width: 50%; /* Each button covers half the story */
+    background-color: transparent; /* Invisible buttons */
+    outline: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.modal-nav-button-story.prev {
+    left: 0;
+}
+.modal-nav-button-story.prev:hover {
+    background-color: transparent;
+}
+
+.modal-nav-button-story.next {
+    right: 0;
+}
+
+.modal-nav-button-story.next:hover {
+    background-color: transparent;
+}
+
+/* Use this to make the header's height match the CSS variable */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--modal-header-height); /* Use the CSS variable for height */
+    box-sizing: border-box;
+}
+
+
+
+
+
+

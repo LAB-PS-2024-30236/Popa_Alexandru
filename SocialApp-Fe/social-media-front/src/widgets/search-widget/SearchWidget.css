@@ -1,0 +1,69 @@
+.search-container {
+    position: absolute;
+    right: 0;
+    width: 80vw;
+    height: 100%;
+    padding-top: 60px;
+    padding-left: 4%;
+}
+
+.description-input-search {
+    /*width: 100%;*/
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 16px;
+    outline: none;
+}
+
+.description-input-search:focus {
+    border-color: rgb(247, 27, 98);
+    box-shadow: 0 0 8px rgba(0,86,179,0.2);
+}
+
+.search-results {
+    margin-top: 10px;
+    overflow-y: auto; /* Add a scrollbar if the results overflow */
+    max-height: calc(100vh - 100px); /* Adjust height to fit within the viewport */
+    padding-right: 10px; /* Ensure scrollbar doesn't overlap content */
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0; /* Add padding for each result item */
+    border-bottom: 1px solid #f1f1f1; /* Add a separator between items */
+}
+
+.search-result-item:last-child {
+    border-bottom: none; /* Remove bottom border for the last item */
+}
+
+.search-result-item img {
+    width: 40px; /* Reduce the size of the image */
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px; /* Increase spacing between image and text */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 1em; /* Reduce the font size for names */
+    font-weight: bold; /* Optionally make the name bold */
+    color: #333; /* Darken the font color for contrast */
+}
+
+.user-info p {
+    margin: 0;
+    color: #999; /* Lighten the color for less important text */
+    font-size: 0.9em; /* Reduce the font size for other text */
+}
+
+.no-results {
+    text-align: center; /* Center the 'no results' text */
+    padding: 20px; /* Add padding to the 'no results' message */
+    color: #999; /* Style the 'no results' text to be less prominent */
+}
+

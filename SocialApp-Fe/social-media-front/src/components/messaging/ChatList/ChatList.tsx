@@ -21,6 +21,7 @@ const ChatList: React.FC<ChatListProps> = ({username, conversations}) => {
     const fullName = useSelector(sessionSelect.fullName);
     return (
         <div className='chat-list-widget'>
+            <>
             <div className='chat-list-header'>
                 <BText text={username}/>
                 <img src={Plus} className='chat-list-header-text'/>
@@ -47,6 +48,7 @@ const ChatList: React.FC<ChatListProps> = ({username, conversations}) => {
                                 receiverId: conv.senderId.userId === userId ? conv.receiverId.userId : conv.senderId.userId})
                     }}/>
             )}
+            </>
         </div>
     );
 }

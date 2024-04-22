@@ -29,7 +29,7 @@ const AuthLoginWidget: React.FC = () => {
         if (isLogged || errorMessage === 'NO-ERROR') {
             dispatch(loginSuccess());
             navigate('/home');
-            dispatch(showSidebar);
+            dispatch(showSidebar());
         }
         if(userId !== '') {
             getSession({userId, dispatch});
@@ -67,7 +67,8 @@ const AuthLoginWidget: React.FC = () => {
                 <Link to='resetpass' className='link-btn'>
                     <BText text="Forgot password?" color={PRIMARY_LIGHT}/>
                 </Link>
-                <Button content='Log in' onClick={handleSubmit}/>
+
+                <Button content='Log in'  onClick={handleSubmit}/>
                 {errorMessage && errorMessage !== 'NO-ERROR' && <LText text={"Incorrect password"} color={'#ff0000'}/>}
                 <Line/>
                 <div className="auth-under">

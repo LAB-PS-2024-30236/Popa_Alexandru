@@ -25,15 +25,16 @@ const FeedSidebar: React.FC = () => {
                 <div className="suggested-text">
                     <BText text="Suggested for you" color={DARK_GREY}/>
                     <BText text="See all"/>
-                </div>
+                </div><>
                 {suggestedFriends.map((user) => (
                     <SuggestedFriend
                     name={user.username}
                     profilePicture={user.profilePicture}
                     commonFollower={user.commonFriend.username}
-                    key={user.userId}/>
+                    key={user.userId}
+                    userId={user.userId}/>
                     )
-                )}
+                )}</>
             </div>
             <div className="suggested-card">
                 <LText text="About • Help • Privacy • Terms • Language" color={DARK_GREY}/>
