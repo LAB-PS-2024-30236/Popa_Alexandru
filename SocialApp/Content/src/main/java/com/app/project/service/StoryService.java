@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -30,16 +31,26 @@ public class StoryService {
     public Flux<StoryResponse> getStories(Long userId) {
         LocalDateTime timeLimit = LocalDateTime.now().minusHours(24);
 
-        return getUserFriends(userId)
-                .flatMap(friendId ->
-                        getUser(friendId)
-                                .flatMapMany(user ->
-                                        Flux.fromIterable(storyRepository.findByUserId(friendId))
-                                                .filter(story -> story.getDatePosted().isAfter(ChronoLocalDate.from(timeLimit))) // Filter stories newer than 24 hours
-                                                .map(story -> mapToStoryResponse(story, user))
-                                )
+        // Create a Flux for the friends' stories
+        Flux<StoryResponse> friendsStories = getUserFriends(userId)
+                .flatMap(friendId -> getUser(friendId)
+                        .flatMapMany(user -> Flux.fromIterable(storyRepository.findByUserId(friendId))
+                                .filter(story -> story.getDatePosted().isAfter(ChronoLocalDate.from(timeLimit)))
+                                .map(story -> mapToStoryResponse(story, user))
+                        )
                 );
+
+        // Create a Flux for the user's own stories
+        Flux<StoryResponse> userStories = getUser(userId)
+                .flatMapMany(user -> Flux.fromIterable(storyRepository.findByUserId(userId))
+                        .filter(story -> story.getDatePosted().isAfter(ChronoLocalDate.from(timeLimit)))
+                        .map(story -> mapToStoryResponse(story, user))
+                );
+
+        // Merge the user's stories with friends' stories and return the resulting Flux
+        return Flux.merge(friendsStories, userStories);
     }
+
 
     public Flux<StoryResponse> getRandomStories() {
         LocalDateTime timeLimit = LocalDateTime.now().minusHours(24);
@@ -81,6 +92,9 @@ public class StoryService {
                 .build();
     }
 
+    private List<Story> getstory(Long userId){
+       return storyRepository.findByUserId(userId);
+    }
     private Mono<User> getUser(@NonNull Long userId) {
         var webRequest = webClient
                 .get()
@@ -107,6 +121,10 @@ public class StoryService {
             }
             sink.complete();
         }).distinct().take(5);
+    }
+
+    public Story addStory(Story story){
+        return storyRepository.save(story);
     }
 
 }

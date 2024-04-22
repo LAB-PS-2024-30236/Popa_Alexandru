@@ -15,11 +15,17 @@ public class Content {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentId;
+
     @NonNull
     private Long userId;
+
     @NonNull
     private String photo;
+
     @NonNull
     private LocalDate datePosted;
+
     private String description;
+
+    private int numberOfLikes = 0;
 }

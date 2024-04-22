@@ -16,10 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.util.retry.Retry;
+import reactor.core.scheduler.Schedulers;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -48,21 +47,15 @@ public class ContentService {
     @Autowired
     private ContentRepository contentRepository;
 
-    public Flux<ContentResponse> getSuggestedPosts(@NonNull Long userId) {
-        return Flux.merge(getUserFriends(userId).map(this::getPosts));
-    }
-
-
     public Flux<ContentResponse> getPosts(Long userId) {
         return getUserFriends(userId)
-                .flatMap(friendId ->
-                        getUser(friendId)
-                                .zipWith(Mono.just(contentRepository.findByUserId(friendId)))
-                                .map(tuple -> {
-                                    User user = tuple.getT1();
-                                    Content content = tuple.getT2();
-                                    return mapToContentResponse(content, user);
-                                }));
+                .flatMap(friendId -> getUser(friendId)
+                        .flatMapMany(user ->
+                                Flux.defer(() -> Flux.fromIterable(contentRepository.findByUserId(friendId))) // Wrap the blocking call
+                                        .subscribeOn(Schedulers.boundedElastic()) // Use boundedElastic for blocking IO tasks
+                                        .map(content -> mapToContentResponse(content, user))
+                        )
+                );
     }
 
 
@@ -179,9 +172,6 @@ public class ContentService {
             sink.complete();
         });
     }
-
-
-
 
 
     public Content addPost(Content post) {

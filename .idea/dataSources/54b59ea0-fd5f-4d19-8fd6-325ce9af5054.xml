@@ -11,9 +11,9 @@
 4||10|c|G
 4||10|C|G
 4||10|T|G</Grants>
-      <IntrospectionStateNumber>1160</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1226</IntrospectionStateNumber>
       <ServerVersion>16.0</ServerVersion>
-      <StartupTime>1712505426</StartupTime>
+      <StartupTime>1713157928</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -55,14 +55,14 @@ false Africa/Blantyre
 false Africa/Brazzaville
 false Africa/Bujumbura
 false Africa/Cairo
-true Africa/Casablanca
+false Africa/Casablanca
 true Africa/Ceuta
 false Africa/Conakry
 false Africa/Dakar
 false Africa/Dar_es_Salaam
 false Africa/Djibouti
 false Africa/Douala
-true Africa/El_Aaiun
+false Africa/El_Aaiun
 false Africa/Freetown
 false Africa/Gaborone
 false Africa/Harare
@@ -306,9 +306,9 @@ false Asia/Dili
 false Asia/Dubai
 false Asia/Dushanbe
 true Asia/Famagusta
-false Asia/Gaza
+true Asia/Gaza
 false Asia/Harbin
-false Asia/Hebron
+true Asia/Hebron
 false Asia/Ho_Chi_Minh
 false Asia/Hong_Kong
 false Asia/Hovd
@@ -809,7 +809,7 @@ false Zulu
 14697||10|C|G
 14697||-9223372036854775808|U|G
 14697||10|U|G</Grants>
-      <IntrospectionStateNumber>1160</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1226</IntrospectionStateNumber>
       <ObjectId>16398</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4237,8 +4237,8 @@ false Zulu
     <schema id="265" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>1160</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-04-07.16:21:02</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1226</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-04-15.05:28:25</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -4293,7 +4293,7 @@ false Zulu
     </sequence>
     <table id="272" parent="265" name="content">
       <ObjectId>16559</ObjectId>
-      <StateNumber>822</StateNumber>
+      <StateNumber>1225</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
@@ -4360,7 +4360,13 @@ false Zulu
       <StateNumber>822</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <index id="283" parent="272" name="content_pkey">
+    <column id="283" parent="272" name="number_of_likes">
+      <DasType>integer|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1225</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="284" parent="272" name="content_pkey">
       <ColNames>content_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16565</ObjectId>
@@ -4369,14 +4375,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="284" parent="272" name="content_pkey">
+    <key id="285" parent="272" name="content_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16566</ObjectId>
       <Primary>1</Primary>
       <StateNumber>822</StateNumber>
       <UnderlyingIndexId>16565</UnderlyingIndexId>
     </key>
-    <column id="285" parent="273" name="message_id">
+    <column id="286" parent="273" name="message_id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;message_message_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4385,43 +4391,43 @@ false Zulu
       <SequenceId>24692</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="286" parent="273" name="is_edited">
+    <column id="287" parent="273" name="is_edited">
       <DasType>boolean|0s</DasType>
       <Position>2</Position>
       <StateNumber>973</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="287" parent="273" name="content">
+    <column id="288" parent="273" name="content">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
       <StateNumber>973</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="288" parent="273" name="is_read">
+    <column id="289" parent="273" name="is_read">
       <DasType>boolean|0s</DasType>
       <Position>4</Position>
       <StateNumber>973</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="289" parent="273" name="receiver_id">
+    <column id="290" parent="273" name="receiver_id">
       <DasType>bigint|0s</DasType>
       <Position>5</Position>
       <StateNumber>973</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="290" parent="273" name="sender_id">
+    <column id="291" parent="273" name="sender_id">
       <DasType>bigint|0s</DasType>
       <Position>6</Position>
       <StateNumber>973</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="291" parent="273" name="timestamp">
+    <column id="292" parent="273" name="timestamp">
       <DasType>timestamp(6)|0s</DasType>
       <Position>7</Position>
       <StateNumber>973</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <index id="292" parent="273" name="message_pkey">
+    <index id="293" parent="273" name="message_pkey">
       <ColNames>message_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24697</ObjectId>
@@ -4430,14 +4436,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="293" parent="273" name="message_pkey">
+    <key id="294" parent="273" name="message_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24698</ObjectId>
       <Primary>1</Primary>
       <StateNumber>973</StateNumber>
       <UnderlyingIndexId>24697</UnderlyingIndexId>
     </key>
-    <column id="294" parent="274" name="id">
+    <column id="295" parent="274" name="id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;notifications_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4446,37 +4452,37 @@ false Zulu
       <SequenceId>16583</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="295" parent="274" name="date_time">
+    <column id="296" parent="274" name="date_time">
       <DasType>timestamp(6)|0s</DasType>
       <Position>2</Position>
       <StateNumber>828</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <column id="296" parent="274" name="is_read">
+    <column id="297" parent="274" name="is_read">
       <DasType>boolean|0s</DasType>
       <Position>3</Position>
       <StateNumber>828</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="297" parent="274" name="message">
+    <column id="298" parent="274" name="message">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
       <StateNumber>828</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="298" parent="274" name="title">
+    <column id="299" parent="274" name="title">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
       <StateNumber>828</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="299" parent="274" name="user_id">
+    <column id="300" parent="274" name="user_id">
       <DasType>bigint|0s</DasType>
       <Position>6</Position>
       <StateNumber>828</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <index id="300" parent="274" name="notifications_pkey">
+    <index id="301" parent="274" name="notifications_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16590</ObjectId>
@@ -4485,14 +4491,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="301" parent="274" name="notifications_pkey">
+    <key id="302" parent="274" name="notifications_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16591</ObjectId>
       <Primary>1</Primary>
       <StateNumber>828</StateNumber>
       <UnderlyingIndexId>16590</UnderlyingIndexId>
     </key>
-    <column id="302" parent="275" name="story_id">
+    <column id="303" parent="275" name="story_id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;story_story_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4501,25 +4507,25 @@ false Zulu
       <SequenceId>16592</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="303" parent="275" name="date_posted">
+    <column id="304" parent="275" name="date_posted">
       <DasType>date|0s</DasType>
       <Position>2</Position>
       <StateNumber>841</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="304" parent="275" name="photo">
+    <column id="305" parent="275" name="photo">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
       <StateNumber>841</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="305" parent="275" name="user_id">
+    <column id="306" parent="275" name="user_id">
       <DasType>bigint|0s</DasType>
       <Position>4</Position>
       <StateNumber>841</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <index id="306" parent="275" name="story_pkey">
+    <index id="307" parent="275" name="story_pkey">
       <ColNames>story_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16597</ObjectId>
@@ -4528,14 +4534,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="307" parent="275" name="story_pkey">
+    <key id="308" parent="275" name="story_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16598</ObjectId>
       <Primary>1</Primary>
       <StateNumber>841</StateNumber>
       <UnderlyingIndexId>16597</UnderlyingIndexId>
     </key>
-    <column id="308" parent="276" name="user_id">
+    <column id="309" parent="276" name="user_id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;user_user_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4544,85 +4550,85 @@ false Zulu
       <SequenceId>16515</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="309" parent="276" name="bio">
+    <column id="310" parent="276" name="bio">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="310" parent="276" name="birthdate">
+    <column id="311" parent="276" name="birthdate">
       <DasType>date|0s</DasType>
       <Position>3</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="311" parent="276" name="email">
+    <column id="312" parent="276" name="email">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="312" parent="276" name="first_name">
+    <column id="313" parent="276" name="first_name">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="313" parent="276" name="is_private">
+    <column id="314" parent="276" name="is_private">
       <DasType>boolean|0s</DasType>
       <Position>6</Position>
       <StateNumber>801</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="314" parent="276" name="language">
+    <column id="315" parent="276" name="language">
       <DasType>varchar(255)|0s</DasType>
       <Position>7</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="315" parent="276" name="last_name">
+    <column id="316" parent="276" name="last_name">
       <DasType>varchar(255)|0s</DasType>
       <Position>8</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="316" parent="276" name="password">
+    <column id="317" parent="276" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>9</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="317" parent="276" name="phone_number">
+    <column id="318" parent="276" name="phone_number">
       <DasType>varchar(255)|0s</DasType>
       <Position>10</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="318" parent="276" name="profile_picture">
+    <column id="319" parent="276" name="profile_picture">
       <DasType>varchar(255)|0s</DasType>
       <Position>11</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="319" parent="276" name="status">
+    <column id="320" parent="276" name="status">
       <DasType>boolean|0s</DasType>
       <Position>12</Position>
       <StateNumber>801</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="320" parent="276" name="username">
+    <column id="321" parent="276" name="username">
       <DasType>varchar(255)|0s</DasType>
       <Position>13</Position>
       <StateNumber>801</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="321" parent="276" name="role">
+    <column id="322" parent="276" name="role">
       <DasType>varchar(255)|0s</DasType>
       <Position>14</Position>
       <StateNumber>1127</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="322" parent="276" name="user_pkey">
+    <index id="323" parent="276" name="user_pkey">
       <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16522</ObjectId>
@@ -4631,7 +4637,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="323" parent="276" name="uk_ob8kqyqqgmefl0aco34akdtpe">
+    <index id="324" parent="276" name="uk_ob8kqyqqgmefl0aco34akdtpe">
       <ColNames>email</ColNames>
       <ObjectId>16524</ObjectId>
       <StateNumber>802</StateNumber>
@@ -4641,7 +4647,7 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="324" parent="276" name="uk_4bgmpi98dylab6qdvf9xyaxu4">
+    <index id="325" parent="276" name="uk_4bgmpi98dylab6qdvf9xyaxu4">
       <ColNames>phone_number</ColNames>
       <ObjectId>16526</ObjectId>
       <StateNumber>803</StateNumber>
@@ -4651,7 +4657,7 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="325" parent="276" name="uk_sb8bbouer5wak8vyiiy4pf2bx">
+    <index id="326" parent="276" name="uk_sb8bbouer5wak8vyiiy4pf2bx">
       <ColNames>username</ColNames>
       <ObjectId>16528</ObjectId>
       <StateNumber>804</StateNumber>
@@ -4661,29 +4667,29 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="326" parent="276" name="user_pkey">
+    <key id="327" parent="276" name="user_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>16523</ObjectId>
       <Primary>1</Primary>
       <StateNumber>801</StateNumber>
       <UnderlyingIndexId>16522</UnderlyingIndexId>
     </key>
-    <key id="327" parent="276" name="uk_ob8kqyqqgmefl0aco34akdtpe">
+    <key id="328" parent="276" name="uk_ob8kqyqqgmefl0aco34akdtpe">
       <ObjectId>16525</ObjectId>
       <StateNumber>802</StateNumber>
       <UnderlyingIndexId>16524</UnderlyingIndexId>
     </key>
-    <key id="328" parent="276" name="uk_4bgmpi98dylab6qdvf9xyaxu4">
+    <key id="329" parent="276" name="uk_4bgmpi98dylab6qdvf9xyaxu4">
       <ObjectId>16527</ObjectId>
       <StateNumber>803</StateNumber>
       <UnderlyingIndexId>16526</UnderlyingIndexId>
     </key>
-    <key id="329" parent="276" name="uk_sb8bbouer5wak8vyiiy4pf2bx">
+    <key id="330" parent="276" name="uk_sb8bbouer5wak8vyiiy4pf2bx">
       <ObjectId>16529</ObjectId>
       <StateNumber>804</StateNumber>
       <UnderlyingIndexId>16528</UnderlyingIndexId>
     </key>
-    <column id="330" parent="277" name="users_logged_id">
+    <column id="331" parent="277" name="users_logged_id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;users_logged_users_logged_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -4692,19 +4698,19 @@ false Zulu
       <SequenceId>32885</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="331" parent="277" name="time_when_logged">
+    <column id="332" parent="277" name="time_when_logged">
       <DasType>timestamp(6)|0s</DasType>
       <Position>2</Position>
       <StateNumber>1158</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <column id="332" parent="277" name="user_id">
+    <column id="333" parent="277" name="user_id">
       <DasType>bigint|0s</DasType>
       <Position>3</Position>
       <StateNumber>1158</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <index id="333" parent="277" name="users_logged_pkey">
+    <index id="334" parent="277" name="users_logged_pkey">
       <ColNames>users_logged_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>32890</ObjectId>
@@ -4713,7 +4719,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="334" parent="277" name="users_logged_pkey">
+    <key id="335" parent="277" name="users_logged_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>32891</ObjectId>
       <Primary>1</Primary>

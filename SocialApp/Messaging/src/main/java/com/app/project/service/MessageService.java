@@ -76,7 +76,7 @@ public class MessageService {
         List<Message> receivedMessages = messageRepository.findByReceiverId(userId);
         List<Message> sendMessages = messageRepository.findBySenderId(userId);
 
-        // Combine the lists
+
         List<Message> combinedMessages = new ArrayList<>(receivedMessages);
         combinedMessages.addAll(sendMessages);
 
@@ -89,7 +89,7 @@ public class MessageService {
                 ));
 
         List<Message> lastMessages = new ArrayList<>(lastMessagesMap.values());
-        lastMessages.sort(Comparator.comparing(Message::getTimestamp));
+        lastMessages.sort(Comparator.comparing(Message::getTimestamp).reversed());
 
         return lastMessages.stream().map(message -> {
             MessageDto dto = new MessageDto();

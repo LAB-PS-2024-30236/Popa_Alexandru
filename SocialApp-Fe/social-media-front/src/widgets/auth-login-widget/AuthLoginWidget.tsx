@@ -29,7 +29,7 @@ const AuthLoginWidget: React.FC = () => {
         if (isLogged || errorMessage === 'NO-ERROR') {
             dispatch(loginSuccess());
             navigate('/home');
-            dispatch(showSidebar);
+            dispatch(showSidebar());
         }
         if(userId !== '') {
             getSession({userId, dispatch});

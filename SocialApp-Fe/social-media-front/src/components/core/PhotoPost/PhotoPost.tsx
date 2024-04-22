@@ -32,7 +32,7 @@ const PhotoPost: React.FC<Post> = ({user,
                             dispatch(setCurrentProfile(user.userId));
                             navigate('/profile');
                         }}/>
-                        <p onClick={() => {
+                        <p className="post-username" onClick={() => {
                             dispatch(setCurrentProfile(user.userId));
                             navigate('/profile');
                         }}>{user.username}</p>

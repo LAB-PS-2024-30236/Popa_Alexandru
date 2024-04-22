@@ -21,8 +21,8 @@ import reactor.core.scheduler.Schedulers;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.time.Duration;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -49,6 +49,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setPhoneNumber(registerRequest.getPhoneNumber());
         user.setRole("user");
+        user.setStatus(false);
+        user.setProfilePicture("https://utfs.io/f/6ad95e31-8d18-4082-818b-fc24319d8c2e-boiebq.jpg");
         if (nameParts.length == 2) {
             user.setFirstName(nameParts[0]);
             user.setLastName(nameParts[nameParts.length - 1]);
@@ -229,4 +231,7 @@ public class UserService {
         return Mono.just(userRepository.findById(id).get());
     }
 
+    public List<User> getUsersByUsernameContaining(String username) {
+        return userRepository.findByUsernameContaining(username);
+    }
 }

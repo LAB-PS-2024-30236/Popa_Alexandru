@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public class ContentController {
         return ContentService.sectionList;
     }
 
-    @GetMapping("/getSuggestedPosts/{userId}")
-    public Flux<ContentResponse> getSuggestedPosts(@PathVariable Long userId) {
-        return contentService.getSuggestedPosts(userId);
-    }
+//    @GetMapping("/getSuggestedPosts/{userId}")
+//    public Flux<ContentResponse> getSuggestedPosts(@PathVariable Long userId) {
+//        return contentService.getSuggestedPosts(userId);
+//    }
 
     @GetMapping("getUserPosts/{userId}")
     public ResponseEntity<List<Content>> getUserPosts(@PathVariable Long userId){
@@ -41,5 +42,9 @@ public class ContentController {
         return contentService.getRandomPosts(userId);
     }
 
+    @PostMapping("/addPost")
+    public Content addPost(@RequestBody Content content){
+        return contentService.addPost(content);
+    }
 }
 

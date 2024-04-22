@@ -78,55 +78,55 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.generated-requests | #49.executor": "Run",
-    "JUnit.ConnectionServiceTest.executor": "Run",
-    "JUnit.ContentServiceTest.executor": "Run",
-    "JUnit.ContentServiceTest.getRandomPostsTest.executor": "Run",
-    "JUnit.MessageServiceTest.executor": "Run",
-    "JUnit.StoryServiceTest.executor": "Run",
-    "JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword.executor": "Debug",
-    "JUnit.UserServiceTest.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.CommentsReactionsProjectApplication.executor": "Run",
-    "Spring Boot.ConnectionsProjectApplication.executor": "Run",
-    "Spring Boot.ContentProjectApplication.executor": "Run",
-    "Spring Boot.MessagingProjectApplication.executor": "Run",
-    "Spring Boot.NotificationProjectApplication.executor": "Run",
-    "Spring Boot.SearchProjectApplication.executor": "Run",
-    "Spring Boot.UserProjectApplication.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Assigment2",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/polihack/Polihack-14",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "rest.client.default.execution.environment": "dev",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "D:\\an3_facultate\\sem1\\IS\\laboratoare\\SocialApp-Fe\\social-media-front\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.generated-requests | #49.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnectionServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ContentServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ContentServiceTest.getRandomPostsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MessageServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.StoryServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserServiceTest.changePasswordChange_ValidOldPassword_ChangesPassword.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.UserServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CommentsReactionsProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConnectionsProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ContentProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MessagingProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.NotificationProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.SearchProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Assigment2&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/polihack/Polihack-14&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;rest.client.default.execution.environment&quot;: &quot;dev&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\an3_facultate\\sem1\\IS\\laboratoare\\SocialApp-Fe\\social-media-front\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql",
-      "mongo"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;,
+      &quot;mongo&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="Push.Settings">
     <option name="SHOW_DETAILS_PANEL" value="false" />
   </component>
@@ -148,24 +148,9 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ConnectionsProjectApplication">
+  <component name="RunManager" selected="Spring Boot.MessagingProjectApplication">
     <configuration name="generated-requests | #49" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="49" requestIdentifier="#49" runType="Run single request">
       <method v="2" />
-    </configuration>
-    <configuration name="ContentServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="project (3)" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.app.project.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.app.project.service" />
-      <option name="MAIN_CLASS_NAME" value="com.app.project.service.ContentServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="ContentServiceTest.getRandomPostsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="project (3)" />
@@ -255,9 +240,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="project (7)" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.app.project.UserProjectApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.app.project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="HTTP Request.generated-requests | #49" />
-      <item itemvalue="JUnit.ContentServiceTest" />
       <item itemvalue="JUnit.ContentServiceTest.getRandomPostsTest" />
       <item itemvalue="JUnit.MessageServiceTest" />
       <item itemvalue="JUnit.StoryServiceTest" />
@@ -267,14 +265,15 @@
       <item itemvalue="Spring Boot.MessagingProjectApplication" />
       <item itemvalue="Spring Boot.NotificationProjectApplication" />
       <item itemvalue="Spring Boot.SearchProjectApplication" />
+      <item itemvalue="Spring Boot.UserProjectApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.UserProjectApplication" />
         <item itemvalue="HTTP Request.generated-requests | #49" />
         <item itemvalue="JUnit.StoryServiceTest" />
         <item itemvalue="JUnit.MessageServiceTest" />
         <item itemvalue="JUnit.ContentServiceTest.getRandomPostsTest" />
-        <item itemvalue="JUnit.ContentServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -381,7 +380,19 @@
       <workItem from="1712419849287" duration="22000" />
       <workItem from="1712481556769" duration="1902000" />
       <workItem from="1712505527856" duration="2319000" />
-      <workItem from="1712512366701" duration="7412000" />
+      <workItem from="1712512366701" duration="10817000" />
+      <workItem from="1712552822775" duration="4749000" />
+      <workItem from="1712575423069" duration="930000" />
+      <workItem from="1712585519252" duration="1636000" />
+      <workItem from="1712602845604" duration="3987000" />
+      <workItem from="1712914314570" duration="1517000" />
+      <workItem from="1712916484630" duration="143000" />
+      <workItem from="1713157991728" duration="9806000" />
+      <workItem from="1713190173378" duration="760000" />
+      <workItem from="1713193814365" duration="1666000" />
+      <workItem from="1713264863353" duration="4174000" />
+      <workItem from="1713284064284" duration="4308000" />
+      <workItem from="1713762774414" duration="4384000" />
     </task>
     <task id="LOCAL-00001" summary="Solved problems for user">
       <option name="closed" value="true" />
@@ -562,7 +573,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/controller/UserController.java</url>
-          <line>93</line>
+          <line>105</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -582,12 +593,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/service/UserService.java</url>
-          <line>76</line>
+          <line>78</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/service/UserService.java</url>
-          <line>77</line>
+          <line>79</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -597,7 +608,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/controller/UserController.java</url>
-          <line>28</line>
+          <line>36</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -647,23 +658,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java</url>
-          <line>40</line>
+          <line>41</line>
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/Content/src/main/java/com/app/project/service/ContentService.java</url>
-          <line>150</line>
+          <line>143</line>
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/controller/UsersLoggedController.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="66" />
+          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/service/UsersLoggedService.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/service/UsersLoggedService.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="67" />
+          <url>file://$PROJECT_DIR$/SocialApp/Search/src/main/java/com/app/project/service/SearchService.java</url>
+          <line>32</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -9,7 +9,6 @@ import {
 } from "./reducers";
 import { EffectsPayload } from "./types";
 
-// Helper function for retrying requests on empty response
 // @ts-ignore
 async function fetchWithRetryOnEmpty({url, method, headers, dispatch, successAction, maxRetries = 3, currentAttempt = 0}) {
     try {
@@ -62,17 +61,17 @@ export const dataRequested = async ({ userId, jwtToken, dispatch }: EffectsPaylo
         console.error(error);
     });
 
-    await request({
-        url: CONTENT_BASE_URL + '/getSuggestedPosts/' + userId,
-        method: 'GET',
-        headers: {
-            'Authorization': "Bearer " + jwtToken
-        }
-    }).then((response) => {
-        dispatch(suggestedPostsSuccess(response.data));
-    }).catch((error) => {
-        console.error(error);
-    });
+    // await request({
+    //     url: CONTENT_BASE_URL + '/getSuggestedPosts/' + userId,
+    //     method: 'GET',
+    //     headers: {
+    //         'Authorization': "Bearer " + jwtToken
+    //     }
+    // }).then((response) => {
+    //     dispatch(suggestedPostsSuccess(response.data));
+    // }).catch((error) => {
+    //     console.error(error);
+    // });
 
     await request({
         url: CONNECTIONS_BASE_URL + '/getSuggestedFriends/' + userId,

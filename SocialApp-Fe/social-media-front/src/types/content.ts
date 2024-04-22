@@ -6,6 +6,7 @@ export type Post = {
     photo: string;
     datePosted: string;
     description?: string;
+    numberOfLikes: number;
 }
 
 export type Comment = {

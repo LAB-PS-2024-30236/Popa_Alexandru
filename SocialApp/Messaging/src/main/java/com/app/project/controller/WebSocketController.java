@@ -34,16 +34,13 @@ public class WebSocketController {
     @SendTo("/topic/messages")
     public void sendMessage(@Payload Message message) {
         messageService.saveMessage(message);
-        // Send to the sender
         messagingTemplate.convertAndSendToUser(message.getSenderId().toString(), "/queue/reply", message);
-        // Send to the recipient
         messagingTemplate.convertAndSendToUser(message.getReceiverId().toString(), "/queue/reply", message);
     }
 
     @MessageMapping("/updateReadStatus")
     public void updateReadStatus(@Payload ReadStatusUpdate update) {
         messageService.updateMessageReadStatus(update.getMessageId(), update.getIsRead());
-        // Assuming you have a method to get the sender and receiver ID for the message
         Long[] userIds = messageService.getUserIdsForMessage(update.getMessageId());
         for (Long userId : userIds) {
             messagingTemplate.convertAndSendToUser(userId.toString(), "/queue/readStatus", update);

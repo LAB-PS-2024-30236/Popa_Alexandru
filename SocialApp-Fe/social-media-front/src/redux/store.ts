@@ -6,6 +6,8 @@ import feedReducer from '../widgets/feed-main-widget/model/reducers';
 import profileReducer from '../widgets/profile-overview-widget/model/reducers';
 import postReducer from '../widgets/post-overview-widget/model/reducers';
 import messageReducer from '../widgets/messaging-overview-widget/model/reducers';
+import usersReducer from '../widgets/users-logged-widget/model/model/reducers';
+import searchReducer from '../widgets/search-widget/model/reducers';
 
 const rootReducer = {
     auth: authReducer,
@@ -14,7 +16,9 @@ const rootReducer = {
     session: sessionReducer,
     profile: profileReducer,
     post: postReducer,
-    message: messageReducer
+    message: messageReducer,
+    users: usersReducer,
+    search: searchReducer
 };
 
 const store = configureStore({

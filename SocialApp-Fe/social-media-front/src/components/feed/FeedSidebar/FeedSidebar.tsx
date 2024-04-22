@@ -31,7 +31,8 @@ const FeedSidebar: React.FC = () => {
                     name={user.username}
                     profilePicture={user.profilePicture}
                     commonFollower={user.commonFriend.username}
-                    key={user.userId}/>
+                    key={user.userId}
+                    userId={user.userId}/>
                     )
                 )}</>
             </div>

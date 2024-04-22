@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
 public interface ContentRepository extends JpaRepository<Content, Long> {
 
     @Query("SELECT p from Content p where p.userId= :userId")
-    Content findByUserId(Long userId);
+    List<Content> findByUserId(Long userId);
+
 
     @Query("SELECT c FROM Content c WHERE c.userId = :userId")
     List<Content> findAllByUserId(@Param("userId") Long userId);

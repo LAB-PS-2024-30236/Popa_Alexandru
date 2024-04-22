@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {closeSidebar, showSidebar} from "../../redux/core/layout/reducers";
 import {sessionSelect} from "../../redux/core/session/selectors";
@@ -16,6 +16,10 @@ import {setCurrentProfile} from "./model/reducers";
 import Line from "../../components/core/Line/Line";
 import Camera from '../../assets/icons/camera.svg';
 import Lock from '../../assets/icons/lock.svg';
+import PostModal from "./PostModal";
+import {Post} from "../../types/content";
+
+
 
 const ProfileOverviewWidget: React.FC = () => {
     const userId = useSelector(sessionSelect.userId);
@@ -32,11 +36,30 @@ const ProfileOverviewWidget: React.FC = () => {
     const connection = useSelector(profileSelect.profileConnection);
     const isPrivate = useSelector(profileSelect.profilePrivate);
 
+
     const isMyProfile = userId === profileUserId;
     const isLogged = useSelector(authSelect.isLogged);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+    const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+
+    const openModal = (index: number) => {
+        setCurrentIndex(index);
+    };
+
+    // Closes the modal
+    const closeModal = () => {
+        setCurrentIndex(null);
+    };
+
+    const goToPrevPost = () => {
+        setCurrentIndex((prevIndex) => (prevIndex! > 0 ? prevIndex! - 1 : prevIndex));
+    };
+    const goToNextPost = () => {
+        setCurrentIndex((prevIndex) =>   prevIndex !== null && prevIndex < posts.length - 1 ? prevIndex + 1 : prevIndex);
+    };
 
     if(profileUserId === '') dispatch(setCurrentProfile(userId));
     useEffect(() => {
@@ -96,16 +119,29 @@ const ProfileOverviewWidget: React.FC = () => {
                     <h1>This Account is Private</h1>
                 </div>
             }
-            {posts.length > 0 && (isMyProfile || (isPrivate && connection === "Following") || !isPrivate ) &&
-                <div className='profile-posts-grid'>
-                    {posts.map((post) => {
-                        return <img src={post.photo} key={post.contentId} className='profile-post-image'/>
-                    })}
-                </div>}
+            {posts.length > 0 && (isMyProfile || (isPrivate && connection === "Following") || !isPrivate) &&
+                <>
+                    <div className='profile-posts-grid'>
+                        {posts.map((post, index) => (
+                            <div key={post.contentId} className='profile-post-item' onClick={() => openModal(index)}>
+                                <img src={post.photo} alt="" className='profile-post-image'/>
+                            </div>
+                        ))}
+                    </div>
+                    {currentIndex !== null && (
+                        <PostModal
+                            post={posts[currentIndex]}
+                            handleClose={closeModal}
+                            goToPrevPost={goToPrevPost}
+                            goToNextPost={goToNextPost}
+                        />
+                    )}
+                </>
+            }
             {posts.length === 0 && (isMyProfile || (isPrivate && connection === "Following") || !isPrivate) &&
                 <div className='profile-no-posts'>
                     <div className='profile-no-posts-icon'>
-                        <img src={Camera} className='profile-no-posts-icon-img'/>
+                    <img src={Camera} className='profile-no-posts-icon-img'/>
                     </div>
                     <h1>No Posts Yet</h1>
                 </div>

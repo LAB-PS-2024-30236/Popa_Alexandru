@@ -11,6 +11,10 @@
     border-radius: 40px;
 }
 
+.suggested-friend-photo:hover{
+    cursor: pointer;
+}
+
 .suggested-friend-text {
     display: flex;
     flex-direction: column;
