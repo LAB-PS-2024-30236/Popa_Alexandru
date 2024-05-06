@@ -81,6 +81,28 @@
     background-color: #0056b3; /* Darken button on hover */
 }
 
+.dark-mode .feed-central {
+    color: #93B1A6; /* Adjust text color for dark mode */
+}
+
+.dark-mode .button-75 {
+    background-image: linear-gradient(135deg, #183D3D 40%, #93B1A6);
+}
+
+.dark-mode .end-of-post {
+    color: #93B1A6; /* Adjust end-of-post text color */
+}
+
+.dark-mode .buttons-container button {
+    background-color: #183D3D; /* Adjust button background color */
+    color: #fff; /* Adjust button text color */
+}
+
+.dark-mode .buttons-container button:hover {
+    background-color: #93B1A6; /* Darken button on hover */
+}
+
+
 @media (max-width: 970px) {
     .feed-central {
         width: 70vw;

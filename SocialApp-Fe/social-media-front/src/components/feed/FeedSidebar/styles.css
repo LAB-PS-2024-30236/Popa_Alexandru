@@ -18,6 +18,21 @@
     flex-direction: row;
 }
 
+.feed-sidebar-card.dark-mode {
+    background-color: #333; /* Darker background for the sidebar */
+    color: #ccc; /* Lighter text color for readability */
+}
+
+.suggested-card.dark-mode {
+    background-color: #444; /* Slightly lighter than sidebar for subtle contrast */
+}
+
+.feed-sidebar-card.dark-mode .suggested-text,
+.feed-sidebar-card.dark-mode .suggested-card {
+    border-color: #555; /* Darker borders if needed */
+}
+
+
 @media (max-width: 970px) {
     .feed-sidebar-card{
         display: none;

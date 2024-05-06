@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dataRequested } from "./model/effects";
 import { searchSelect } from "./model/selectors";
@@ -11,6 +11,12 @@ const SearchWidget: React.FC = () => {
     const dispatch = useDispatch();
     const searchResult = useSelector(searchSelect.searchResult);
     const navigate = useNavigate();
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
 
     const fetchData = useCallback(() => {
         if (username) {
@@ -23,7 +29,7 @@ const SearchWidget: React.FC = () => {
     }, [fetchData]);
 
     return (
-        <div className="search-container">
+        <div  className={`search-container ${isDarkMode ? 'dark-mode' : ''}`}>
             <input
                 className="description-input-search"
                 type="text"

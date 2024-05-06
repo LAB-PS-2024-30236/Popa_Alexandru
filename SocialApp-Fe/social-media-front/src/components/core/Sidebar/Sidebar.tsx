@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import './styles.css';
 import Home1 from '../../../assets/icons/house.svg';
@@ -25,8 +25,15 @@ const Sidebar: React.FC = () => {
     const decodedPayload = JSON.parse(window.atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
     const isAdmin = decodedPayload.aud === 'admin';
 
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
+
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${isDarkMode ? 'dark-mode' : ''}`}>
             <div className="sidebar-options">
                 <p className="sidebar-logo">yolo</p>
                 <div className="sidebar-options"><>

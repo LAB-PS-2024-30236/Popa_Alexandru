@@ -7,13 +7,13 @@ export type UsersState = {
 }
 
 
-
 export type UserLogged = {
     profilePhoto: string,
     username: string,
     name: string,
     timeWhenLogged: string,
-    userId: string
+    userId: string,
+    isDarkMode?: any
 }
 
 export type UserLoggedPayload = {

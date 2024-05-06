@@ -11,4 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MessageDelete {
     private Long messageId;
+    private Long deletedByUserId;
 }

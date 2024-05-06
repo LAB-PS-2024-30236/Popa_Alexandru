@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { messageSelect } from "../../../widgets/messaging-overview-widget/model/selectors";
-import { CompatClient, Stomp } from '@stomp/stompjs';
+import React, {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {CompatClient, Stomp} from '@stomp/stompjs';
+import {useNavigate} from "react-router-dom";
 
 import Phone from '../../../assets/icons/phone.svg';
 import Video from '../../../assets/icons/video.svg';
@@ -15,167 +15,260 @@ import BText from "../../core/BText/BText";
 import LText from "../../core/LText/LText";
 import Button from "../../core/Button/Button";
 import MessageBubble from "../MessageBubble/MessageBubble";
-import { sessionSelect } from "../../../redux/core/session/selectors";
-import { getMessageShape } from "../../../utils/utils";
-import { dataRequested, getPersonChats } from "../../../widgets/messaging-overview-widget/model/effects";
-import { useNavigate } from "react-router-dom";
-import { setCurrentProfile } from "../../../widgets/profile-overview-widget/model/reducers";
 
-let socket: WebSocket;
-let stompClient: CompatClient;
+import {sessionSelect} from "../../../redux/core/session/selectors";
+import {messageSelect} from "../../../widgets/messaging-overview-widget/model/selectors";
+import {setCurrentProfile} from "../../../widgets/profile-overview-widget/model/reducers";
+import {getMessageShape} from "../../../utils/utils";
+import {newChatMessageReceived} from "../../../widgets/messaging-overview-widget/model/reducers";
+
+import {storage} from "../../../firebase";
+import {getDownloadURL, ref, uploadBytes} from '@firebase/storage';
+import {v4 as uuidv4} from 'uuid';
 
 const ChatOverview = () => {
     const currentConversation = useSelector(messageSelect.currentConversation);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const jwtToken = useSelector(sessionSelect.jwtToken);
     const messages = useSelector(messageSelect.currentChat);
     const myUserId = useSelector(sessionSelect.userId);
+    const jwtToken = useSelector(sessionSelect.jwtToken);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [message, setMessage] = useState('');
     const [connected, setConnected] = useState(false);
     const isFirst = currentConversation.userId === '';
+    const stompClientRef = useRef<CompatClient | null>(null);
+    const messagesEndRef = useRef<HTMLDivElement | null>(null);
+    const [file, setFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [imageMessage, setImageMessage] = useState('');
 
-    const updateMessages = () => {
-        getPersonChats({
-            userId: myUserId,
-            jwtToken,
-            dispatch,
-            receiverId: currentConversation.userId
-        });
-        dataRequested({ userId: myUserId, jwtToken, dispatch });
-    }
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
+
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+        }
+    };
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages.length]);
 
     const connect = () => {
-        socket = new WebSocket('ws://localhost:8083/chat/websocket');
-        stompClient = Stomp.over(socket);
-        stompClient.debug = (str) => {
-            console.log('STOMP Debug:', str);
-        };
-        stompClient.connect({}, (frame: string) => {
-            setConnected(true);
-            console.log('Connected: ' + frame);
-            stompClient.subscribe('/user/queue/reply', message => {
-                console.log("Received reply message", message.body);
-                updateMessages();
-            });
+        const socket = new WebSocket(`ws://localhost:8083/chat/websocket?token=${jwtToken}`);
+        const stompClient = Stomp.over(socket);
+        stompClient.debug = console.log;
 
-            stompClient.subscribe('/user/queue/readStatus', message => {
-                console.log("Received read status update", message.body);
-                updateMessages();
-            });
-            stompClient.subscribe('/user/queue/contentUpdate', message => {
-                console.log("Received content update", message.body);
-                updateMessages();
-            });
-            stompClient.subscribe('/user/queue/deleteMessage', message => {
-                console.log("Received delete message command", message.body);
+        stompClient.connect({}, () => {
+            setConnected(true);
+            console.log('Connected: ' + stompClient.connected);
+            stompClientRef.current = stompClient;
+
+            const receiveQueue = `/queue/${currentConversation.userId}/${myUserId}`;
+            stompClient.subscribe(receiveQueue, message => {
+                console.log("Received message", message.body);
+                const parsedMessage = JSON.parse(message.body);
+                const chatMessage = {
+                    senderId: parsedMessage.senderId,
+                    receiverId: parsedMessage.receiverId,
+                    content: parsedMessage.content,
+                    timestamp: parsedMessage.timestamp,
+                    isRead: false,
+                    isEdited: false
+                };
+                dispatch(newChatMessageReceived(chatMessage));
             });
         }, (error: any) => {
             console.error('Connection error:', error);
         });
-    }
+    };
 
     const disconnect = () => {
-        if (connected && socket) {
-            stompClient.disconnect(() => {
+        if (connected && stompClientRef.current) {
+            stompClientRef.current.disconnect(() => {
                 console.log("Disconnected");
+                setConnected(false);
             });
-            setConnected(false);
-        }
-    }
-
-    const sendMessage = () => {
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            console.log("Sending message", {
-                senderId: myUserId,
-                receiverId: currentConversation.userId,
-                content: message
-            });
-            stompClient.send("/app/sendMessage", {}, JSON.stringify({
-                senderId: parseInt(myUserId),
-                receiverId: parseInt(currentConversation.userId),
-                content: message,
-                timestamp: new Date().toISOString()
-            }));
-            setMessage('');
-            updateMessages();
         }
     };
 
-    const onMessageChange = (event: { target: { value: React.SetStateAction<string>; }; }) => setMessage(event.target.value);
+    const sendMessage = () => {
+        if (connected && stompClientRef.current) {
+            const messageToSend = {
+                senderId: myUserId,
+                receiverId: currentConversation.userId,
+                content: message,
+                timestamp: new Date().toISOString()
+            };
+            console.log(messageToSend.content)
+            if (myUserId === currentConversation.userId) {
+                const sendQueue = `/queue/${myUserId}/${currentConversation.userId}`;
+                stompClientRef.current.send(sendQueue, {}, JSON.stringify(messageToSend));
+                const sendEndpoint = "/app/sendMessage";
+                stompClientRef.current.send(sendEndpoint, {}, JSON.stringify(messageToSend));
+            } else {
+                const sendQueue = `/queue/${myUserId}/${currentConversation.userId}`;
+                stompClientRef.current.send(sendQueue, {}, JSON.stringify(messageToSend));
+                const sendQueue1 = `/queue/${currentConversation.userId}/${myUserId}`;
+                stompClientRef.current.send(sendQueue1, {}, JSON.stringify(messageToSend));
+                const sendEndpoint = "/app/sendMessage";
+                stompClientRef.current.send(sendEndpoint, {}, JSON.stringify(messageToSend));
+            }
+
+            setMessage('');
+            setImageMessage('');
+            setTimeout(() => {
+                scrollToBottom();
+            }, 100);
+        }
+    };
+
+    const handleKeyPress = (event: { key: string; shiftKey: any; preventDefault: () => void; }) => {
+        if (event.key === 'Enter' && !event.shiftKey && message !== '') {
+            event.preventDefault();
+            sendMessage();
+        }
+    };
+    const onMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMessage(event.target.value);
+    };
 
     useEffect(() => {
         connect();
         return () => {
             disconnect();
+        };
+    }, [currentConversation.userId, jwtToken]);
+
+    const uploadImage = async (file: File) => {
+        const imageRef = ref(storage, `messages/${myUserId}_${file.name}_${uuidv4()}`);
+        try {
+            const snapshot = await uploadBytes(imageRef, file);
+            return await getDownloadURL(snapshot.ref);
+        } catch (error) {
+            console.error("Failed to upload image: ", error);
+            throw error;
         }
-    }, [])
+    };
+    useEffect(() => {
+        if (imageMessage) {
+            setMessage(imageMessage);
+            sendMessage();
+            setImageMessage('');
+        }
+    }, [imageMessage]);
+    const sendImageMessage = async () => {
+        if (file) {
+            console.log('Uploading file:', file.name);
+            try {
+                const imageUrl = await uploadImage(file);
+                console.log('Image URL:', imageUrl);
+                setImageMessage(imageUrl);
+                setMessage(imageMessage);
+            } catch (error) {
+                console.error("Failed to send image message: ", error);
+            }
+        }
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        if (files && files[0]) {
+            setFile(files[0]);
+            sendImageMessage();
+        }
+    };
 
     return (
         <div>
-            {isFirst && (
+            {isFirst ? (
                 <div className='chat-overview-opening'>
                     <div className='chat-overview-opening-container'>
                         <div className='chat-overview-opening-icon-back'>
-                            <img src={Chat} className='chat-overview-opening-icon' />
+                            <img src={Chat} className='chat-overview-opening-icon' alt="Chat Icon"/>
                         </div>
-                        <BText text='Your messages' />
-                        <LText text='Send private photos and messages to a friend or group' />
-                        <Button content='Send message' />
+                        <BText text='Your messages'/>
+                        <LText text='Send private photos and messages to a friend or group.'/>
+                        <Button content='Send message' onClick={() => console.log('Send message')}/>
                     </div>
                 </div>
-            )}
-            {!isFirst && (
-                <div className='chat-overview'>
-                    <div className='chat-overview-header'>
+            ) : (
+                <div className={`chat-overview ${isDarkMode ? 'dark-mode' : ''}`}>
+                    <div className={`chat-overview-header ${isDarkMode ? 'dark-mode' : ''}`}>
                         <div className='chat-overview-header-info'>
-                            <img src={currentConversation.profilePicture} className='chat-overview-header-picture' onClick={() => {
-                                dispatch(setCurrentProfile(currentConversation.userId));
-                                navigate('/profile');
-                            }} />
-                            <BText text={currentConversation.firstName + ' ' + currentConversation.lastName} onClick={() => {
-                                dispatch(setCurrentProfile(currentConversation.userId));
-                                navigate('/profile');
-                            }} />
+                            <img
+                                src={currentConversation.profilePicture}
+                                alt="Profile"
+                                className='chat-overview-header-picture'
+                                onClick={() => {
+                                    dispatch(setCurrentProfile(currentConversation.userId));
+                                    navigate('/profile');
+                                }}
+                            />
+                            <BText text={`${currentConversation.firstName} ${currentConversation.lastName}`}
+                                   onClick={() => {
+                                       dispatch(setCurrentProfile(currentConversation.userId));
+                                       navigate('/profile');
+                                   }}/>
                         </div>
                         <div className='chat-overview-header-actions'>
-                            <img src={Phone} className='chat-overview-icon' />
-                            <img src={Video} className='chat-overview-icon' />
-                            <img src={Dots} className='chat-overview-icon' onClick={() => {
+                            <img src={Phone} alt="Phone Call" className='chat-overview-icon'/>
+                            <img src={Video} alt="Video Call" className='chat-overview-icon'/>
+                            <img src={Dots} alt="More Options" className='chat-overview-icon' onClick={() => {
                                 dispatch(setCurrentProfile(currentConversation.userId));
                                 navigate('/profile');
-                            }} />
+                            }}/>
                         </div>
                     </div>
-                    <div className='chat-overview-messages-container'>
-                        {messages.map((msj, index) =>
+                    <div className='chat-overview-messages-container' ref={messagesEndRef}>
+                        {messages.map((msg, index) => (
                             <MessageBubble
                                 key={index}
-                                content={msj.content}
-                                isMine={msj.senderId === myUserId}
-                                firstCorner={getMessageShape({ messages, index })[0]}
-                                secondCorner={getMessageShape({ messages, index })[1]}
+                                content={msg.content}
+                                isMine={msg.senderId === myUserId}
+                                isDarkMode={isDarkMode}
                             />
-                        )}
+                        ))}
                     </div>
-                    <div className='chat-overview-bottom'>
+                    <div className={`chat-overview-bottom ${isDarkMode ? 'dark-mode' : ''}`}>
                         <div className='chat-overview-form'>
                             <input
+                                type='text'
                                 className='chat-overview-chat'
                                 placeholder='Message...'
                                 value={message}
                                 onChange={onMessageChange}
+                                onKeyDown={handleKeyPress}
                             />
                             {message.length === 0 && (
-                                <div className='chat-overview-bottom-icons'>
-                                    <img src={Image} className='chat-overview-icon' />
-                                    <img src={Heart} className='chat-overview-icon' />
+                                <div>
+                                    <img
+                                        src={Image}
+                                        alt="Send Image"
+                                        className='chat-overview-icon'
+                                        onClick={() => fileInputRef.current?.click()}
+                                    />
+                                    <input
+                                        ref={fileInputRef}
+                                        type="file"
+                                        onChange={handleFileChange}
+                                        style={{display: 'none'}}
+                                    />
+                                    <img src={Heart} alt="Send Love" className='chat-overview-icon'/>
                                 </div>
                             )}
                             {message.length > 0 && (
-                                <div className='chat-overview-bottom-icons'>
-                                    <img src={Send} className='chat-overview-icon' onClick={sendMessage} />
-                                </div>
+                                <img
+                                    src={Send}
+                                    alt="Send Message"
+                                    className='chat-overview-icon'
+                                    onClick={sendMessage}
+                                />
                             )}
                         </div>
                     </div>
@@ -183,6 +276,6 @@ const ChatOverview = () => {
             )}
         </div>
     );
-}
+};
 
 export default ChatOverview;

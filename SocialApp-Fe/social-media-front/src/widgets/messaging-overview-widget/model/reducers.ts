@@ -10,14 +10,17 @@ const messageSlice = createSlice({
         conversationsSuccess: (state, action: PayloadAction<Message[]>) => {
             state.conversations = action.payload;
         },
-        personChatsSuccess: (state,action: PayloadAction<Chat[]>) => {
+        personChatsSuccess: (state, action: PayloadAction<Chat[]>) => {
             state.chats = action.payload;
         },
         changeConversation: (state, action: PayloadAction<User>) => {
             state.currentConversation = action.payload;
+        },
+        newChatMessageReceived: (state, action: PayloadAction<Chat>) => {
+            state.chats.push(action.payload);
         }
     }
 });
 
-export const { conversationsSuccess, personChatsSuccess, changeConversation } = messageSlice.actions;
+export const { conversationsSuccess, personChatsSuccess, changeConversation, newChatMessageReceived } = messageSlice.actions;
 export default messageSlice.reducer;

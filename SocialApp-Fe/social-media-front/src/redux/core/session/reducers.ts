@@ -10,6 +10,7 @@ const sessionSlice = createSlice({
             state.token = action.payload.token;
             localStorage.setItem('token', action.payload.token);
             localStorage.setItem('userId', action.payload.user.userId);
+            localStorage.setItem('hasDarkMode', String(false));
             state.fullName = action.payload.user.firstName + " " + action.payload.user.lastName;
             state.profilePicture = action.payload.user.profilePicture;
             state.username = action.payload.user.username;

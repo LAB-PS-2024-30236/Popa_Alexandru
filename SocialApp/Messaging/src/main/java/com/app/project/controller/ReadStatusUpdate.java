@@ -12,4 +12,5 @@ import lombok.Setter;
 public class ReadStatusUpdate {
     private Long messageId;
     private Boolean isRead;
+    private Long updatedByUserId;
 }

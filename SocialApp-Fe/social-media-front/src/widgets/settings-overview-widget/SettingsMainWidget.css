@@ -1,8 +1,12 @@
 .log-out-container {
+    height: 100%;
+   padding-top: 20%;
+}
+
+.settings-overview-widget{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
     margin-left: 20%;
-   padding-top: 40%;
+    gap: 3%;
 }

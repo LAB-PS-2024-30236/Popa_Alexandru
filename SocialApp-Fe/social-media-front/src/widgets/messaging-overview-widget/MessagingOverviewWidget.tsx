@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ChatOverview from "../../components/messaging/ChatOverview/ChatOverview";
 import ChatList from "../../components/messaging/ChatList/ChatList";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,6 +20,12 @@ const MessagingOverviewWidget: React.FC = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
 
     useEffect(() => {
         dispatch(showSidebar());
@@ -32,7 +38,7 @@ const MessagingOverviewWidget: React.FC = () => {
     }, [dispatch, jwtToken, userId])
 
     return (
-        <div className='messaging-overview'>
+        <div className={`messaging-overview ${isDarkMode ? 'dark-mode' : ''}`}>
             <ChatList username={username} conversations={conversations}/>
             <ChatOverview/>
         </div>

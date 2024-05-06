@@ -1,17 +1,12 @@
 import React from "react";
-import UserRow from "./UserRow";
 import { UserLogged } from "./model/model/types";
-import './UsersLoggedWidget.css'; // Make sure to import the CSS file
+import UserRow from "./UserRow";
 
-interface UsersLogged {
-    usersLogged: UserLogged[];
-}
-
-const UserTable: React.FC<UsersLogged> = ({ usersLogged }) => {
+const UserTable: React.FC<{ usersLogged: any, isDarkMode: any }> = ({usersLogged, isDarkMode}) => {
     return (
-        <div className='body1'>
+        <div className={`body1 ${isDarkMode ? 'dark-mode' : ''}`}>
             <h1>User Log</h1>
-            <div className="tbl-header">
+            <div className={`tbl-header ${isDarkMode ? 'dark-mode' : ''}`}>
                 <table>
                     <thead>
                     <tr>
@@ -22,11 +17,11 @@ const UserTable: React.FC<UsersLogged> = ({ usersLogged }) => {
                     </thead>
                 </table>
             </div>
-            <div className="tbl-content">
+            <div className={`tbl-content ${isDarkMode ? 'dark-mode' : ''}`}>
                 <table>
                     <tbody>
-                    {usersLogged.map((userLogged, index) => (
-                        <UserRow key={index} {...userLogged} />
+                    {usersLogged.map((userLogged: React.JSX.IntrinsicAttributes & UserLogged, index: React.Key | null | undefined) => (
+                        <UserRow key={index} {...userLogged} isDarkMode={isDarkMode}/>
                     ))}
                     </tbody>
                 </table>

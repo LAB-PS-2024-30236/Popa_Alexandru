@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './PostModal.css'; // Make sure you have corresponding CSS styles defined
 import HeartIcon from '../../assets/icons/heart.svg'; // Update the path to your actual icons
 import Chat from '../../assets/icons/chat.svg';
@@ -21,14 +21,20 @@ interface PostModalProps {
 const PostModal: React.FC<PostModalProps> = ({ post, handleClose, goToPrevPost, goToNextPost }) => {
     const username = useSelector(profileSelect.profileUsername);
     const profilePhoto = useSelector(profileSelect.profilePicture);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
     const handleNavClick = (event: React.MouseEvent<HTMLButtonElement>, callback: () => void) => {
         event.stopPropagation();
         callback();
     };
 
     return (
-        <div className="post-modal-overlay" onClick={handleClose}>
-            <div className="post-modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className={`post-modal-overlay ${isDarkMode ? 'dark-mode' : ''}`} onClick={handleClose}>
+            <div  className={`post-modal-content ${isDarkMode ? 'dark-mode' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <div className="post-modal-header">
                     <img src={profilePhoto} className="post-modal-username-image"/>
                     <span className="post-modal-username">{username}</span>

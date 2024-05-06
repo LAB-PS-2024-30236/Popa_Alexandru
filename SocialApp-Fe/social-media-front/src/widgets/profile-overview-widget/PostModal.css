@@ -4,17 +4,23 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000; /* Ensure it's above other content */
 }
 
+.post-modal-background {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 50px; /* Adjust as needed to expand the background */
+    z-index: -1; /* Ensure it's behind the content */
+}
+
 .post-modal-content {
     position: relative;
     background-color: #fff;
-    width: 500px;  /* Fixed width */
+    width: 500px; /* Fixed width */
     height: 600px; /* Fixed height */
     display: flex;
     flex-direction: column;
@@ -118,3 +124,32 @@
     position: absolute;
     right: 10px;
 }
+
+.post-modal-overlay.dark-mode {
+    background-color: rgba(0, 0, 0, 0.85); /* Slightly darker background for dark mode */
+}
+
+.dark-mode .post-modal-background {
+    background-color: rgba(0, 0, 0, 0.85); /* Adjust for dark mode */
+}
+
+.dark-mode .post-modal-content {
+    background-color: #333; /* Dark background for modal content */
+    color: #fff; /* Light text for better readability */
+}
+
+.post-modal-header.dark-mode,
+.post-modal-info.dark-mode {
+    background-color: #424242; /* Slightly different shade for header and info sections */
+}
+
+.modal-nav-button.dark-mode {
+    background-color: #555; /* Dark background for buttons */
+    color: #ddd; /* Lighter text color */
+}
+
+.modal-nav-button.dark-mode:hover {
+    background-color: #666; /* Slightly lighter background on hover */
+}
+
+/* Continue adjusting other elements as needed based on your design */

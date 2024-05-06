@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c66dcbf6-9c25-404c-8bb5-c4383adb8a25" name="Changes" comment="">
+    <list default="true" id="c66dcbf6-9c25-404c-8bb5-c4383adb8a25" name="Changes" comment="fgrfew">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1927184e-5287-4a2d-9f66-30cbdc28a872.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1927184e-5287-4a2d-9f66-30cbdc28a872.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054/storage_v2/_src_/database/IsProject.b7JzQg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054/storage_v2/_src_/database/IsProject.b7JzQg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,8 +65,15 @@
   <component name="JpbToolWindowState">
     <option name="isToolWindowVisible" value="false" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -102,10 +110,10 @@
     &quot;Spring Boot.SearchProjectApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.UserProjectApplication.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Assigment2&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/polihack/Polihack-14&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/an4_facultate/SD/Laborator/Proiect_lab/ds2024_30243_popa_alexandru_assigment_1/Backend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -280,7 +288,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
       </set>
     </attachedChunks>
   </component>
@@ -393,6 +402,30 @@
       <workItem from="1713264863353" duration="4174000" />
       <workItem from="1713284064284" duration="4308000" />
       <workItem from="1713762774414" duration="4384000" />
+      <workItem from="1713799342258" duration="1158000" />
+      <workItem from="1714072442773" duration="7815000" />
+      <workItem from="1714111969965" duration="4912000" />
+      <workItem from="1714130276806" duration="619000" />
+      <workItem from="1714139542853" duration="613000" />
+      <workItem from="1714896631722" duration="24000" />
+      <workItem from="1714897146733" duration="1680000" />
+      <workItem from="1714984891610" duration="1710000" />
+      <workItem from="1715893011175" duration="588000" />
+      <workItem from="1715954630123" duration="740000" />
+      <workItem from="1728212319806" duration="28000" />
+      <workItem from="1728212359762" duration="225000" />
+      <workItem from="1728212618666" duration="1331000" />
+      <workItem from="1728215331544" duration="593000" />
+      <workItem from="1728293516051" duration="116000" />
+      <workItem from="1728294430001" duration="1173000" />
+      <workItem from="1728374540146" duration="2053000" />
+      <workItem from="1729106382302" duration="1333000" />
+      <workItem from="1729145372443" duration="34000" />
+      <workItem from="1729189293061" duration="700000" />
+      <workItem from="1729192558879" duration="2875000" />
+      <workItem from="1729267230536" duration="635000" />
+      <workItem from="1729272641922" duration="1809000" />
+      <workItem from="1729276190414" duration="990000" />
     </task>
     <task id="LOCAL-00001" summary="Solved problems for user">
       <option name="closed" value="true" />
@@ -572,11 +605,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/controller/UserController.java</url>
-          <line>105</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/Connections/src/main/java/com/app/project/controller/ConnectionController.java</url>
           <line>28</line>
           <option name="timeStamp" value="36" />
@@ -607,21 +635,6 @@
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/controller/UserController.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/config/SecurityConfig.java</url>
-          <line>14</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/config/SecurityConfig.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/authentication/ApiJsonWebTokenFilter.java</url>
           <line>17</line>
           <option name="timeStamp" value="54" />
@@ -640,21 +653,6 @@
           <url>file://$PROJECT_DIR$/SocialApp/User/src/main/java/com/app/project/model/User.java</url>
           <line>7</line>
           <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/Connections/src/main/java/com/app/project/service/ConnectionService.java</url>
-          <line>169</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/Connections/src/main/java/com/app/project/service/ConnectionService.java</url>
-          <line>170</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/SocialApp/Connections/src/main/java/com/app/project/service/ConnectionService.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/SocialApp/Content/src/main/java/com/app/project/controller/ContentController.java</url>

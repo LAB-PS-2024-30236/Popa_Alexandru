@@ -30,10 +30,13 @@ const FeedMainWidget: React.FC = () => {
     const dispatch = useDispatch();
     const [showDiscoverPosts, setShowDiscoverPosts] = useState(false);
     const [showButtons, setShowButtons] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
         dispatch(closeProfile());
         dataRequested({ userId, jwtToken, dispatch })
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
 
         if (!isLogged) {
             navigate('/login');
@@ -66,7 +69,7 @@ const FeedMainWidget: React.FC = () => {
     };
 
     return (
-        <div className="widget-main">
+        <div className={`widget-main ${isDarkMode ? 'dark-mode' : ''}`}>
             <div className="feed-central">
                 <>
                     <StorySlider stories={storiesPerUser} />

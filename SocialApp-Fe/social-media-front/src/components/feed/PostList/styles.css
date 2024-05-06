@@ -1,8 +1,34 @@
 .post-list-container {
+    position: relative;
     width: 35vw;
     display: flex;
     flex-direction: column;
-    gap: 15px
+    gap: 15px;
+    z-index: 1; /* Ensure it stays above the pseudo-element */
+}
+
+.post-list-container::before {
+    content: '';
+    position: absolute;
+    top: -20px; /* Extend 20px above */
+    left: -20px; /* Extend 20px to the left */
+    right: -20px; /* Extend 20px to the right */
+    bottom: -20px; /* Extend 20px below */
+    background-color: inherit; /* Inherit background color from the container */
+    z-index: -1; /* Ensure it is behind the container content */
+}
+
+.post-list-container.dark-mode::before {
+    background-color: #333; /* Darker background for dark mode */
+}
+
+.post-list-container.dark-mode {
+    color: #fff; /* Lighter text color for better readability */
+}
+
+/* If PhotoPost has specific elements that need style adjustments */
+.post-list-container.dark-mode .photo-post {
+    border-color: #555; /* Darker borders for posts */
 }
 
 @media (max-width: 970px) {
