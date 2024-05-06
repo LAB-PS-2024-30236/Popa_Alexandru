@@ -1,6 +1,6 @@
 // StorySlider.tsx
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {StoryType} from "../../../types/auth";
 import Story from "../../core/Story/Story";
 import SimpleModal from "./SimpleModal";
@@ -27,6 +27,14 @@ const StorySlider: React.FC<StorySliderProps> = ({ stories }) => {
     const [selectedStoryIndex, setSelectedStoryIndex] = useState<number | null>(null);
     const profilePicture = useSelector(sessionSelect.profilePicture);
     const selectedUserId = selectedUserIndex !== null ? stories[selectedUserIndex].user.userId : null;
+
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
+
+
     const handleUserClick = (userIndex: number) => {
         setSelectedUserIndex(userIndex);
         setSelectedStoryIndex(0);
@@ -73,17 +81,18 @@ const StorySlider: React.FC<StorySliderProps> = ({ stories }) => {
 
     return (
         <>
-            <div style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
-                left: 0,
-                gap: 10,
-                padding: 10
-            }}>
+            <div className={`story-slider ${isDarkMode ? 'dark-mode' : ''}`}
+                 style={{
+                     width: '100%',
+                     display: 'flex',
+                     flexDirection: 'row',
+                     left: 0,
+                     gap: 10,
+                     padding: 10
+                 }}>
                 {stories.map((userStories, index) => (
                     <div onClick={() => handleUserClick(index)} key={userStories.user.userId}>
-                        <Story {...userStories.stories[0]} /> {/* Display the first story as a preview */}
+                        <Story {...userStories.stories[0]} />
                     </div>
                 ))}
             </div>
@@ -97,6 +106,7 @@ const StorySlider: React.FC<StorySliderProps> = ({ stories }) => {
                     handleNext={handleNextStory}
                     username={stories[selectedUserIndex].user.username}
                     profilePicture={profilePicture}
+                    isDarkMode={isDarkMode}
                 >
                     <img src={stories[selectedUserIndex].stories[selectedStoryIndex].photo} alt="Story" />
                 </SimpleModal>

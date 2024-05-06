@@ -120,6 +120,21 @@
     box-sizing: border-box;
 }
 
+.dark-mode .modal-overlay {
+    background-color: rgba(50, 50, 50, 0.8); /* Darker background for modal overlay */
+}
+
+.dark-mode .modal-content {
+    background-color: #333; /* Dark background for modal content */
+}
+
+.dark-mode .modal-header {
+    background-color: rgba(50, 50, 50, 0.5); /* Darker header */
+}
+
+.dark-mode .modal-username {
+    color: #ddd; /* Lighter text color for better visibility */
+}
 
 
 

@@ -12,4 +12,5 @@ import lombok.Setter;
 public class MessageContentUpdate {
     private Long messageId;
     private String newContent;
+    private Long updatedByUserId;
 }

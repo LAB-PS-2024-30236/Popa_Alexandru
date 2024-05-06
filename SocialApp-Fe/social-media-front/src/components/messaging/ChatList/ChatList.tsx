@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Plus from '../../../assets/icons/plus.svg';
 import BText from "../../core/BText/BText";
 import {Message} from "../../../widgets/messaging-overview-widget/model/types";
@@ -19,8 +19,16 @@ const ChatList: React.FC<ChatListProps> = ({username, conversations}) => {
     const profilePicture = useSelector(sessionSelect.profilePicture);
     const userId = useSelector(sessionSelect.userId);
     const fullName = useSelector(sessionSelect.fullName);
+
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
+
     return (
-        <div className='chat-list-widget'>
+        <div className={`chat-list-widget ${isDarkMode ? 'dark-mode' : ''}`}>
             <>
             <div className='chat-list-header'>
                 <BText text={username}/>
@@ -37,6 +45,7 @@ const ChatList: React.FC<ChatListProps> = ({username, conversations}) => {
                     message={conv.content}
                     date={conv.timestamp}
                     isRead={conv.isRead}
+                    isDarkMode={isDarkMode}
                     onClick={() => {
                         dispatch(changeConversation(conv.senderId.userId === userId ? conv.receiverId : conv.senderId));
 

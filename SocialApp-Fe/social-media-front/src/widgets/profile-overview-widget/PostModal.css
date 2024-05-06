@@ -118,3 +118,28 @@
     position: absolute;
     right: 10px;
 }
+
+.post-modal-overlay.dark-mode {
+    background-color: rgba(0, 0, 0, 0.85); /* Slightly darker background for dark mode */
+}
+
+.post-modal-content.dark-mode {
+    background-color: #333; /* Dark background for modal content */
+    color: #fff; /* Light text for better readability */
+}
+
+.post-modal-header.dark-mode,
+.post-modal-info.dark-mode {
+    background-color: #424242; /* Slightly different shade for header and info sections */
+}
+
+.modal-nav-button.dark-mode {
+    background-color: #555; /* Dark background for buttons */
+    color: #ddd; /* Lighter text color */
+}
+
+.modal-nav-button.dark-mode:hover {
+    background-color: #666; /* Slightly lighter background on hover */
+}
+
+/* Continue adjusting other elements as needed based on your design */

@@ -1,7 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
-import { createPost, createStory } from "./model/effects"; // Import createStory as well
+import { createPost, createStory } from "./model/effects";
 import { sessionSelect } from "../../redux/core/session/selectors";
 import './PostCreateWidget.css';
 import { storage } from "../../firebase";
@@ -18,6 +18,12 @@ const PostCreateWidget: React.FC = () => {
     const datePosted = new Date().toISOString().split('T')[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
 
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value);
@@ -75,7 +81,7 @@ const PostCreateWidget: React.FC = () => {
     };
 
     return (
-        <div className='widget-main-create'>
+        <div className={`widget-main-create ${isDarkMode ? 'dark-mode' : ''}`}>
             <div className='upload-section'>
                 <div className='image-upload-container' onClick={handleClick}>
                     {preview ? (
@@ -97,9 +103,9 @@ const PostCreateWidget: React.FC = () => {
                         onChange={handleDescriptionChange}/>
                 </div>
                 <div className='button-section'>
-                    <Button className="create-post-button" onClick={() => handleSubmit('post')}>Add as Post</Button>
-                    <Button className="create-post-button" onClick={() => handleSubmit('story')}>Add as Story</Button>
-                    <Button className="create-post-button" onClick={() => handleSubmit('both')}>Add</Button>
+                    <Button className={`create-post-button ${isDarkMode ? 'dark-mode' : ''}`} onClick={() => handleSubmit('post')}>Add as Post</Button>
+                    <Button className={`create-post-button ${isDarkMode ? 'dark-mode' : ''}`} onClick={() => handleSubmit('story')}>Add as Story</Button>
+                    <Button className={`create-post-button ${isDarkMode ? 'dark-mode' : ''}`} onClick={() => handleSubmit('both')}>Add</Button>
                 </div>
             </div>
         </div>

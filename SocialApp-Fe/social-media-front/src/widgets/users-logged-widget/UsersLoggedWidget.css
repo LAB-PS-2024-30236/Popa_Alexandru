@@ -89,6 +89,37 @@ td{
     padding-top: 5px;
 }
 
+.export-to-xml{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    padding: 5%;
+}
+.dark-mode {
+    background-color: #333; /* Dark background for dark mode */
+    color: #fff; /* Light text for better readability */
+}
+
+.widget-main-logged.dark-mode
+{
+    background-color: #333; /* Dark mode background color for the main widget area */
+}
+.body1.dark-mode {
+    background-image: linear-gradient(135deg, #183D3D 40%, #93B1A6); /* Dark mode background color for the main widget area */
+}
+
+.tbl-header.dark-mode,
+.tbl-content.dark-mode {
+    background-color: #333; /* Slightly lighter background for tables in dark mode */
+}
+
+th.dark-mode,
+td.dark-mode {
+    color: #ccc; /* Lighter text color for table headers and cells */
+}
+
+
 @media (max-width: 970px) {
     .widget-main-logged{
         width: 70vw;

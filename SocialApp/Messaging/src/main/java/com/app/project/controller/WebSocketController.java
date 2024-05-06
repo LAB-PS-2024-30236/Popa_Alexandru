@@ -1,13 +1,11 @@
 package com.app.project.controller;
 
-
 import com.app.project.model.Message;
 import com.app.project.model.MessageDto;
 import com.app.project.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +16,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-
 public class WebSocketController {
 
     private final MessageService messageService;
@@ -30,12 +27,18 @@ public class WebSocketController {
         this.messagingTemplate = messagingTemplate;
     }
 
+    private void sendToUserQueue(Long userId, String suffix, Object payload) {
+        String destination = "/queue/" + userId + suffix;
+        System.out.println(payload.toString());
+        messagingTemplate.convertAndSend(destination, payload);
+
+    }
+
     @MessageMapping("/sendMessage")
-    @SendTo("/topic/messages")
     public void sendMessage(@Payload Message message) {
         messageService.saveMessage(message);
-        messagingTemplate.convertAndSendToUser(message.getSenderId().toString(), "/queue/reply", message);
-        messagingTemplate.convertAndSendToUser(message.getReceiverId().toString(), "/queue/reply", message);
+        sendToUserQueue(message.getSenderId(), message.getReceiverId().toString(), message);
+        sendToUserQueue(message.getReceiverId(), message.getSenderId().toString(), message);
     }
 
     @MessageMapping("/updateReadStatus")
@@ -43,7 +46,7 @@ public class WebSocketController {
         messageService.updateMessageReadStatus(update.getMessageId(), update.getIsRead());
         Long[] userIds = messageService.getUserIdsForMessage(update.getMessageId());
         for (Long userId : userIds) {
-            messagingTemplate.convertAndSendToUser(userId.toString(), "/queue/readStatus", update);
+            sendToUserQueue(userId, update.getUpdatedByUserId().toString(), update);
         }
     }
 
@@ -52,7 +55,7 @@ public class WebSocketController {
         messageService.updateMessageContent(update.getMessageId(), update.getNewContent());
         Long[] userIds = messageService.getUserIdsForMessage(update.getMessageId());
         for (Long userId : userIds) {
-            messagingTemplate.convertAndSendToUser(userId.toString(), "/queue/contentUpdate", update);
+            sendToUserQueue(userId, update.getUpdatedByUserId().toString(), update);
         }
     }
 
@@ -61,9 +64,10 @@ public class WebSocketController {
         messageService.deleteMessage(delete.getMessageId());
         Long[] userIds = messageService.getUserIdsForMessage(delete.getMessageId());
         for (Long userId : userIds) {
-            messagingTemplate.convertAndSendToUser(userId.toString(), "/queue/deleteMessage", delete);
+            sendToUserQueue(userId, delete.getDeletedByUserId().toString(), delete);
         }
     }
+
 
     @GetMapping("/getPersonConversations/{userId}")
     public List<MessageDto> getPersonConversations(@PathVariable Long userId) {
@@ -71,7 +75,7 @@ public class WebSocketController {
     }
 
     @GetMapping("/getPersonChat/{userId1}/{userId2}")
-    public List<Message>getPersonChat(@PathVariable Long userId1, @PathVariable Long userId2){
+    public List<Message> getPersonChat(@PathVariable Long userId1, @PathVariable Long userId2) {
         return messageService.getPersonChat(userId1, userId2);
     }
 

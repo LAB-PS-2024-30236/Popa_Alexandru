@@ -67,3 +67,27 @@
     color: #999; /* Style the 'no results' text to be less prominent */
 }
 
+.search-container.dark-mode {
+    background-color: #333; /* Darker background for the container */
+    color: #ccc; /* Lighter text color for better readability */
+}
+
+.description-input-search.dark-mode {
+    background-color: #555; /* Darker input background */
+    color: #fff; /* White text for input */
+    border-color: #777; /* Darker border for input */
+}
+
+.search-container.dark-mode .search-result-item {
+    border-bottom-color: #444; /* Darker separator between items */
+}
+
+.search-container.dark-mode .user-info h4,
+.search-container.dark-mode .user-info p {
+    color: #ddd; /* Lighter text color for user info */
+}
+
+.search-container.dark-mode .no-results {
+    color: #aaa; /* Lighter color for no results text */
+}
+

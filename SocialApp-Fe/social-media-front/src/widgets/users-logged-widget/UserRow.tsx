@@ -1,12 +1,11 @@
 import React from "react";
-import { UserLogged } from "./model/model/types";
-import './UsersLoggedWidget.css'
 
-const UserRow: React.FC<UserLogged> = ({ profilePhoto, username, name, timeWhenLogged }) => {
+const UserRow: React.FC<{ profilePhoto: any, username: any, name: any, timeWhenLogged: any, isDarkMode: any }> = ({ profilePhoto, username, name, timeWhenLogged, isDarkMode }) => {
     return (
-        <tr>
+        <tr className={isDarkMode ? 'dark-mode' : ''}>
             <td>
-                <div className='table-row'><img src={profilePhoto} alt={username} style={{width: "50px", height: "50px"}}/>
+                <div className='table-row'>
+                    <img src={profilePhoto} alt={username} style={{ width: "50px", height: "50px" }}/>
                     <p>{username}</p>
                 </div>
             </td>

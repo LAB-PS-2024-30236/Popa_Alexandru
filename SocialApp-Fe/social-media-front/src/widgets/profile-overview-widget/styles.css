@@ -110,3 +110,22 @@
     aspect-ratio: 1; /* Makes the image boxes square */
     object-fit: cover; /* Ensures the images cover their boxes without stretching */
 }
+.dark-mode {
+    background-color: #333; /* Dark background for dark mode */
+    color: #fff; /* Light text for better readability */
+}
+
+.profile-container.dark-mode,
+.profile-header-container.dark-mode,
+.profile-info.dark-mode {
+    background-color: #333; /* Dark theme background */
+    color: #cdd6f4; /* Light theme text */
+}
+
+.profile-info-number.dark-mode,
+.profile-posts-grid.dark-mode,
+.profile-no-posts.dark-mode {
+    background-color: #333; /* Consistent background for all related containers */
+}
+
+/* Add other necessary styles based on your existing CSS structure */

@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c66dcbf6-9c25-404c-8bb5-c4383adb8a25" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1927184e-5287-4a2d-9f66-30cbdc28a872.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1927184e-5287-4a2d-9f66-30cbdc28a872.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054/storage_v2/_src_/database/IsProject.b7JzQg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/54b59ea0-fd5f-4d19-8fd6-325ce9af5054/storage_v2/_src_/database/IsProject.b7JzQg/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.jpb/jpb-settings.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +68,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -280,7 +285,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-4caba194b151-23eed401" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -393,6 +399,14 @@
       <workItem from="1713264863353" duration="4174000" />
       <workItem from="1713284064284" duration="4308000" />
       <workItem from="1713762774414" duration="4384000" />
+      <workItem from="1713799342258" duration="1158000" />
+      <workItem from="1714072442773" duration="7815000" />
+      <workItem from="1714111969965" duration="4912000" />
+      <workItem from="1714130276806" duration="619000" />
+      <workItem from="1714139542853" duration="613000" />
+      <workItem from="1714896631722" duration="24000" />
+      <workItem from="1714897146733" duration="1680000" />
+      <workItem from="1714984891610" duration="1710000" />
     </task>
     <task id="LOCAL-00001" summary="Solved problems for user">
       <option name="closed" value="true" />

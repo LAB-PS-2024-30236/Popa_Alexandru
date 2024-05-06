@@ -14,11 +14,12 @@ interface SimpleModalProps {
     profilePicture: string;
     userId:string;
     children: React.ReactNode;
+    isDarkMode: boolean;
 }
 
 const SimpleModal: React.FC<SimpleModalProps> = ({
                                                      isOpen,userId, handleClose, handlePrev, handleNext, username,
-                                                     profilePicture, children
+                                                     profilePicture,isDarkMode, children
                                                  }) => {
 
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const SimpleModal: React.FC<SimpleModalProps> = ({
     }
 
     return (
-        <div className="modal-overlay" onClick={handleClose}>
+        <div className={`modal-overlay ${isDarkMode ? 'dark-mode' : ''}`} onClick={handleClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header"
                      onClick={() => {

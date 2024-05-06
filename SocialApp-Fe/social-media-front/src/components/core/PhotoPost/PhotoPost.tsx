@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Post} from "../../../types/content";
 import LText from "../LText/LText";
 import BText from "../BText/BText";
@@ -17,10 +17,16 @@ import {useNavigate} from "react-router-dom";
 const PhotoPost: React.FC<Post> = ({user,
                               photo,
                               description,}) => {
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     return (
-        <div className="post-container">
+        <div className={`post-container ${isDarkMode ? 'dark-mode' : ''}`}>
             <div className="post-topbar">
                 <div className="post-topbar-left">
                     <img className="post-profile-photo" src={user.profilePicture} onClick={() => {

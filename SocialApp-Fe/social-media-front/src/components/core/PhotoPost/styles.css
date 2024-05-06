@@ -111,3 +111,22 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.post-container.dark-mode {
+    background-color: #121212; /* Darker background */
+    color: #ccc; /* Lighter text color */
+}
+
+.post-container.dark-mode .post-topbar,
+.post-container.dark-mode .post-under-img-container {
+    background-color: #222; /* Slightly lighter than container for subtle contrast */
+}
+
+.post-container.dark-mode .post-description,
+.post-container.dark-mode .post-liked-text {
+    color: #ddd; /* Even lighter text for readability */
+}
+
+.post-container.dark-mode .post-icon {
+    filter: invert(1); /* Makes icons suitable for dark background */
+}

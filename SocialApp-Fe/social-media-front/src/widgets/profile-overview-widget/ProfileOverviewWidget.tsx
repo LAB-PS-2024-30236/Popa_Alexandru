@@ -24,6 +24,12 @@ import {Post} from "../../types/content";
 const ProfileOverviewWidget: React.FC = () => {
     const userId = useSelector(sessionSelect.userId);
     const jwtToken = useSelector(sessionSelect.jwtToken);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useEffect(() => {
+        const darkModeSetting = localStorage.getItem('hasDarkMode') === 'true';
+        setIsDarkMode(darkModeSetting);
+    }, []);
 
     const profilePhoto = useSelector(profileSelect.profilePicture);
     const username = useSelector(profileSelect.profileUsername);
@@ -72,7 +78,7 @@ const ProfileOverviewWidget: React.FC = () => {
         dataRequested({userId: profileUserId, myUserId: userId, jwtToken, dispatch});
     }, [jwtToken, profileUserId])
     return (
-        <div className='profile-container'>
+        <div  className={`profile-container ${isDarkMode ? 'dark-mode' : ''}`}>
             <div className='profile-header-container'>
                 <img src={profilePhoto} className='profile-profile-photo'/>
                 <div className='profile-info'>
